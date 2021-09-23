@@ -1,0 +1,9 @@
+tab:datasummary
+eq:mnl
+tab:estimation-results
+intro
+methods
+data
+models
+findings
+additional-analysis
