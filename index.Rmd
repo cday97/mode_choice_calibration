@@ -30,7 +30,7 @@ keywords:
   - Location Choice
 ---
 
-# Introduction {#intro}
+# Question {#intro}
 
 
 This repository serves as a template both in how to write a report, and how

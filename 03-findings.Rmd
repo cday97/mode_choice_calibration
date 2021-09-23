@@ -1,4 +1,4 @@
-# Applications
+# Findings
 
 This section might be called "Results" instead of "Applications," depending
 on what it is that you are working on. But you'll probably say something like 
