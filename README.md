@@ -1,14 +1,11 @@
-## My Template Article
+## Mode Choice Calibration
+**Author:** Chris Day
 
-The `bookdown` example template has a lot going for it, but there are a number 
-of complicated changes I need to make every time I start a new article. So this
-template has the changes pre-made!
+### Purpose
+This repository designs an article about calibrating the mode choice structures between an activity-based
+model and a micro-simulation tool. Specifically, the activity-based model being ActivitySim and the 
+micro-simulation tool being BEAM. 
 
-Changes from the default `bookdown` template include:
+Information on ActivitySim can be found at the following page: [ActivitySim](https://activitysim.github.io/activitysim/)
+Information on BEAm can be found at the following page: [BEAM](https://beam.readthedocs.io/en/latest/users.html)
 
-  - The html output is put in `docs` instead of `_book`, which makes it easy to
-  host the website through GitHub pages.
-  - The pdf output generates an `article` instead of a `book`. The specific 
-  LaTeX template is the Elsevier template, where most of my articles have been
-  published to date.
-  - The keys for the article template are already set up.
