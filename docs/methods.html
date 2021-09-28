@@ -23,7 +23,7 @@
 
 
 
-<meta name="date" content="2021-09-23" />
+<meta name="date" content="2021-09-28" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -61,8 +61,6 @@ div.abstract{
 
 <link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
-<script src="libs/kePrint-0.0.1/kePrint.js"></script>
-<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
 <style type="text/css">
@@ -145,7 +143,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="./">Mode Choice Calibration</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Question</a></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Question</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#background"><i class="fa fa-check"></i><b>1.1</b> Background</a></li>
+</ul></li>
 <li class="chapter" data-level="2" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>2</b> Methods</a><ul>
 <li class="chapter" data-level="2.1" data-path="methods.html"><a href="methods.html#data"><i class="fa fa-check"></i><b>2.1</b> Data</a></li>
 <li class="chapter" data-level="2.2" data-path="methods.html"><a href="methods.html#models"><i class="fa fa-check"></i><b>2.2</b> Models</a></li>
@@ -176,473 +176,39 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="methods" class="section level1">
 <h1><span class="header-section-number"> 2</span> Methods</h1>
-<p>In this chapter, you describe the approach you have taken on the problem. This
-usually involves a discussion about both the data you used and the models you
-applied.</p>
+<p>In this chapter, you describe the approach you have taken on the problem. This usually involves a discussion about both the data you used and the models you applied.</p>
+<p>Discuss where you got your data, how you cleaned it, any assumptions you made.</p>
+<p>If your work is mostly a new model, you probably will have introduced some details in the literature review. But this is where you describe the mathematical construction of your model, the variables it uses, and other things.</p>
 <div id="data" class="section level2">
 <h2><span class="header-section-number">2.1</span> Data</h2>
-<p>Discuss where you got your data, how you cleaned it, any assumptions you made.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">data</span>(<span class="st">&quot;Car&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;mlogit&quot;</span>)</a>
-<a class="sourceLine" id="cb1-2" title="2">car_mlogit &lt;-<span class="st"> </span>Car <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1-3" title="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">choice =</span> <span class="kw">gsub</span>(<span class="st">&quot;choice&quot;</span>, <span class="st">&quot;&quot;</span>, choice)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1-4" title="4"><span class="st">  </span><span class="kw">dfidx</span>( <span class="dt">varying =</span> <span class="dv">5</span><span class="op">:</span><span class="dv">70</span>, <span class="dt">shape =</span> <span class="st">&quot;wide&quot;</span>, <span class="dt">choice =</span> <span class="st">&quot;choice&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;&quot;</span>)</a></code></pre></div>
-<p>Often there will be a table describing summary statistics of your dataset.
-Table <a href="methods.html#tab:datasummary">2.1</a> shows a nice table using the <a href="https://vincentarelbundock.github.io/modelsummary/articles/datasummary.html"><code>datasummary</code></a>
-functions in the <code>modelsummary</code> package.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw">datasummary_balance</span>(</a>
-<a class="sourceLine" id="cb2-2" title="2">  <span class="op">~</span>type, </a>
-<a class="sourceLine" id="cb2-3" title="3">  <span class="dt">data =</span> car_mlogit <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb2-4" title="4"><span class="st">    </span><span class="kw">select</span>(type, fuel, price, range, size), </a>
-<a class="sourceLine" id="cb2-5" title="5">  <span class="dt">dinm =</span> <span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb2-6" title="6">  <span class="dt">title =</span> <span class="st">&quot;Descriptive Statistics of Dataset&quot;</span></a>
-<a class="sourceLine" id="cb2-7" title="7">  )</a></code></pre></div>
-<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
-<caption>
-<span id="tab:datasummary">Table 2.1: </span>Descriptive Statistics of Dataset
-</caption>
-<thead>
-<tr>
-<th style="empty-cells: hide;border-bottom:hidden;" colspan="2">
-</th>
-<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
-<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
-regcar (N=10930)
-</div>
-</th>
-<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
-<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
-sportuv (N=1048)
-</div>
-</th>
-<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
-<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
-sportcar (N=880)
-</div>
-</th>
-<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
-<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
-stwagon (N=4446)
-</div>
-</th>
-<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
-<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
-truck (N=5628)
-</div>
-</th>
-<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
-<div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">
-van (N=4992)
-</div>
-</th>
-</tr>
-<tr>
-<th style="text-align:left;">
-</th>
-<th style="text-align:left;">
-</th>
-<th style="text-align:left;">
-Mean
-</th>
-<th style="text-align:left;">
-Std. Dev.
-</th>
-<th style="text-align:left;">
-Mean
-</th>
-<th style="text-align:left;">
-Std. Dev.
-</th>
-<th style="text-align:left;">
-Mean
-</th>
-<th style="text-align:left;">
-Std. Dev.
-</th>
-<th style="text-align:left;">
-Mean
-</th>
-<th style="text-align:left;">
-Std. Dev.
-</th>
-<th style="text-align:left;">
-Mean
-</th>
-<th style="text-align:left;">
-Std. Dev.
-</th>
-<th style="text-align:left;">
-Mean
-</th>
-<th style="text-align:left;">
-Std. Dev.
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-price
-</td>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-4.2
-</td>
-<td style="text-align:left;">
-1.9
-</td>
-<td style="text-align:left;">
-4.7
-</td>
-<td style="text-align:left;">
-1.9
-</td>
-<td style="text-align:left;">
-4.8
-</td>
-<td style="text-align:left;">
-2.2
-</td>
-<td style="text-align:left;">
-4.1
-</td>
-<td style="text-align:left;">
-1.9
-</td>
-<td style="text-align:left;">
-4.2
-</td>
-<td style="text-align:left;">
-2.0
-</td>
-<td style="text-align:left;">
-4.2
-</td>
-<td style="text-align:left;">
-1.9
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-range
-</td>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-237.2
-</td>
-<td style="text-align:left;">
-94.5
-</td>
-<td style="text-align:left;">
-241.6
-</td>
-<td style="text-align:left;">
-94.7
-</td>
-<td style="text-align:left;">
-233.6
-</td>
-<td style="text-align:left;">
-96.7
-</td>
-<td style="text-align:left;">
-238.7
-</td>
-<td style="text-align:left;">
-94.3
-</td>
-<td style="text-align:left;">
-238.2
-</td>
-<td style="text-align:left;">
-93.1
-</td>
-<td style="text-align:left;">
-236.8
-</td>
-<td style="text-align:left;">
-94.7
-</td>
-</tr>
-<tr>
-<td style="text-align:left;box-shadow: 0px 1px">
-size
-</td>
-<td style="text-align:left;box-shadow: 0px 1px">
-</td>
-<td style="text-align:left;box-shadow: 0px 1px">
-2.4
-</td>
-<td style="text-align:left;box-shadow: 0px 1px">
-0.8
-</td>
-<td style="text-align:left;box-shadow: 0px 1px">
-2.1
-</td>
-<td style="text-align:left;box-shadow: 0px 1px">
-1.0
-</td>
-<td style="text-align:left;box-shadow: 0px 1px">
-1.4
-</td>
-<td style="text-align:left;box-shadow: 0px 1px">
-1.0
-</td>
-<td style="text-align:left;box-shadow: 0px 1px">
-2.3
-</td>
-<td style="text-align:left;box-shadow: 0px 1px">
-0.8
-</td>
-<td style="text-align:left;box-shadow: 0px 1px">
-2.4
-</td>
-<td style="text-align:left;box-shadow: 0px 1px">
-0.8
-</td>
-<td style="text-align:left;box-shadow: 0px 1px">
-2.5
-</td>
-<td style="text-align:left;box-shadow: 0px 1px">
-0.7
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-N
-</td>
-<td style="text-align:left;">
-%
-</td>
-<td style="text-align:left;">
-N
-</td>
-<td style="text-align:left;">
-%
-</td>
-<td style="text-align:left;">
-N
-</td>
-<td style="text-align:left;">
-%
-</td>
-<td style="text-align:left;">
-N
-</td>
-<td style="text-align:left;">
-%
-</td>
-<td style="text-align:left;">
-N
-</td>
-<td style="text-align:left;">
-%
-</td>
-<td style="text-align:left;">
-N
-</td>
-<td style="text-align:left;">
-%
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-fuel
-</td>
-<td style="text-align:left;">
-gasoline
-</td>
-<td style="text-align:left;">
-2704
-</td>
-<td style="text-align:left;">
-24.7
-</td>
-<td style="text-align:left;">
-280
-</td>
-<td style="text-align:left;">
-26.7
-</td>
-<td style="text-align:left;">
-218
-</td>
-<td style="text-align:left;">
-24.8
-</td>
-<td style="text-align:left;">
-1096
-</td>
-<td style="text-align:left;">
-24.7
-</td>
-<td style="text-align:left;">
-1413
-</td>
-<td style="text-align:left;">
-25.1
-</td>
-<td style="text-align:left;">
-1247
-</td>
-<td style="text-align:left;">
-25.0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-methanol
-</td>
-<td style="text-align:left;">
-2729
-</td>
-<td style="text-align:left;">
-25.0
-</td>
-<td style="text-align:left;">
-246
-</td>
-<td style="text-align:left;">
-23.5
-</td>
-<td style="text-align:left;">
-225
-</td>
-<td style="text-align:left;">
-25.6
-</td>
-<td style="text-align:left;">
-1091
-</td>
-<td style="text-align:left;">
-24.5
-</td>
-<td style="text-align:left;">
-1445
-</td>
-<td style="text-align:left;">
-25.7
-</td>
-<td style="text-align:left;">
-1216
-</td>
-<td style="text-align:left;">
-24.4
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-cng
-</td>
-<td style="text-align:left;">
-2767
-</td>
-<td style="text-align:left;">
-25.3
-</td>
-<td style="text-align:left;">
-260
-</td>
-<td style="text-align:left;">
-24.8
-</td>
-<td style="text-align:left;">
-238
-</td>
-<td style="text-align:left;">
-27.0
-</td>
-<td style="text-align:left;">
-1109
-</td>
-<td style="text-align:left;">
-24.9
-</td>
-<td style="text-align:left;">
-1360
-</td>
-<td style="text-align:left;">
-24.2
-</td>
-<td style="text-align:left;">
-1282
-</td>
-<td style="text-align:left;">
-25.7
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-</td>
-<td style="text-align:left;">
-electric
-</td>
-<td style="text-align:left;">
-2730
-</td>
-<td style="text-align:left;">
-25.0
-</td>
-<td style="text-align:left;">
-262
-</td>
-<td style="text-align:left;">
-25.0
-</td>
-<td style="text-align:left;">
-199
-</td>
-<td style="text-align:left;">
-22.6
-</td>
-<td style="text-align:left;">
-1150
-</td>
-<td style="text-align:left;">
-25.9
-</td>
-<td style="text-align:left;">
-1410
-</td>
-<td style="text-align:left;">
-25.1
-</td>
-<td style="text-align:left;">
-1247
-</td>
-<td style="text-align:left;">
-25.0
-</td>
-</tr>
-</tbody>
-</table>
+<p>One dataset that I am thinking about using in the activitysim tour mode values.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1">asim_tour_coeffs &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;data/mtc_2012_tour_mode_choice_coefficients.txt&quot;</span>)</a>
+<a class="sourceLine" id="cb1-2" title="2"><span class="kw">tibble</span>(asim_tour_coeffs)</a></code></pre></div>
+<pre><code>## # A tibble: 41 x 11
+##    Variable     Work College School Escort   Shop `Eat Out` Maint. Social Discr.
+##    &lt;chr&gt;       &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;   &lt;dbl&gt;     &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+##  1 ivtt_auto~ -0.022  -0.027 -0.027 -0.028 -0.028    -0.028 -0.028 -0.028 -0.028
+##  2 ivtt_ligh~ -0.02   -0.024 -0.024 -0.025 -0.025    -0.025 -0.025 -0.025 -0.025
+##  3 ivtt_ferry -0.018  -0.022 -0.022 -0.022 -0.022    -0.022 -0.022 -0.022 -0.022
+##  4 ivtt_expr~ -0.018  -0.018 -0.018 -0.018 -0.018    -0.018 -0.018 -0.018 -0.018
+##  5 ivtt_heav~ -0.018  -0.022 -0.022 -0.022 -0.022    -0.022 -0.022 -0.022 -0.022
+##  6 wait_time~ -0.044  -0.054 -0.054 -0.056 -0.056    -0.056 -0.056 -0.056 -0.056
+##  7 wait_time~ -0.022  -0.027 -0.027 -0.028 -0.028    -0.028 -0.028 -0.028 -0.028
+##  8 egress_ti~ -0.044  -0.054 -0.054 -0.056 -0.056    -0.056 -0.056 -0.056 -0.056
+##  9 transfer_~ -0.044  -0.054 -0.054 -0.056 -0.056    -0.056 -0.056 -0.056 -0.056
+## 10 origin_cl~ -0.293  -0.362 -0.362 -0.372 -0.372    -0.372 -0.372 -0.372 -0.372
+## # ... with 31 more rows, and 1 more variable: At-Work &lt;dbl&gt;</code></pre>
+<p>Lets read them in a make a cool graph. (Note: I still have to double these values.)</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">asim_hbw &lt;-<span class="st"> </span><span class="kw">asim_table</span>(asim_tour_coeffs,Work)</a></code></pre></div>
+<pre><code>## `summarise()` has grouped output by &#39;term&#39;. You can override using the `.groups` argument.</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1">asim_hbw_ivtt &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(asim_hbw[<span class="dv">4</span>,<span class="st">&quot;estimate&quot;</span>])</a>
+<a class="sourceLine" id="cb5-2" title="2">asim_hbw_ratio &lt;-<span class="st"> </span>asim_hbw <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">estimate =</span> estimate<span class="op">/</span>asim_hbw_ivtt,<span class="dt">std.error =</span> <span class="dv">0</span>)</a>
+<a class="sourceLine" id="cb5-3" title="3">hbw_graph &lt;-<span class="st"> </span><span class="kw">ivtt_ratio_grapher</span>(<span class="st">&quot;Home-Based Work&quot;</span>,asim_hbw_ratio)</a>
+<a class="sourceLine" id="cb5-4" title="4">hbw_graph</a></code></pre></div>
+<p><img src="mode_choice_calibration_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 </div>
 <div id="models" class="section level2">
 <h2><span class="header-section-number">2.2</span> Models</h2>
-<p>If your work is mostly a new model, you probably will have introduced some
-details in the literature review. But this is where you describe the
-mathematical construction of your model, the variables it uses, and other
-things. Some methods are so common (linear regression) that it is unnecessary to
-explore them in detail. But others will need to be described, often with
-mathematics. For example, the probability of a multinomial logit model is</p>
-<p><span class="math display" id="eq:mnl">\[\begin{equation}
-  P_i(X_{in}) = \frac{e^{X_{in}\beta_i}}{\sum_{j \in J}e^{X_{jn}\beta_j}}
-  \tag{2.1}
-\end{equation}\]</span></p>
-<p>Use <a href="https://www.overleaf.com/learn/latex/mathematical_expressions">LaTeX mathematics</a>.
-You’ll want to number display equations so that you can
-refer to them later in the manuscript. Other simpler math can be described inline,
-like saying that <span class="math inline">\(i, j \in J\)</span>. Details on using equations in bookdown are available
-<a href="https://bookdown.org/yihui/bookdown/markdown-extensions-by-bookdown.html">here</a>.</p>
 
 </div>
 </div>
@@ -706,20 +272,6 @@ gitbook.start({
 });
 </script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:")
-      if (/^https?:/.test(src))
-        src = src.replace(/^https?:/, '');
-    script.src = src;
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
 </body>
 
 </html>

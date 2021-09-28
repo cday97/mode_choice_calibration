@@ -1,7 +1,5 @@
-tab:datasummary
-eq:mnl
-tab:estimation-results
 intro
+background
 methods
 data
 models
