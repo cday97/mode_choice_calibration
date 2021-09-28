@@ -32,28 +32,9 @@ keywords:
 
 # Question {#intro}
 
+**Are outputs more realistic when a microsimulation tool uses a mode choice structure that mimics the activity-based model that was used to create its inputs?**
 
-This repository serves as a template both in how to write a report, and how
-to do so in RStudio and Bookdown. The parent repository is available as a free
-template at [https://github.com/byu-transpolab/template_bookdown](https://github.com/byu-transpolab/template_bookdown).
+Mode choice is one of the four basic steps in the transportation planning process. Modeling the specific mode choices of individuals with only a subset of population data has always proven difficult for analysts. Since mode is usually defined as a discrete variable, numerous discrete choice models have been used in predicting the mode choice decision. 
 
-The advice in this document comes from numerous sources. Some of it is my own, some
-has been shared by others. Particular note belongs to:
+Activity-based and microsimulation models are useful tools in travel demand modeling. The mode choice structures within these frameworks play a significant role in the transportation planning process. Oftentimes, the outputs of activity-based models are used as the inputs to microsimulation models. The determinations of the microsimulation models are then used to help engineers and planners forecast the transportation needs within the community. Therefore, one must question if having vastly different mode choice structures within activity-based models and microsimulation tools affects the final outputs; and thus, if it shapes the transportation needs of the community in an incorrect way. 
 
-  - Laurie Garrow
-  - Lisa Rosenstein
-  - Kara Kockelman
-  
-The introduction of your report is not simply an "introduction", but rather a 
-**motivation** of why your project matters. What is the cost of not solving 
-this problem? What have been previous attempts to solve this problem? The *why*
-is more important than the *what*. Why is this article worthy of archiving?
-
-A three or four-paragraph structure can work well here.
-
-  1. Identify the problem and why it matters.
-  2. A high-level overview of some previous attempts to solve it, and why those 
-  attempts were limited (this might be two paragraphs).
-  2. Describe the approach (very briefly), and provide an overview of what is 
-  to come. "In this paper we present ..."
-  
