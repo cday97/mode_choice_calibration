@@ -8,3 +8,5 @@
 *.spl
 
 _bookdown_files/
+data/slc-light-2.5k-mnl-test/*
+data/slc-light-2.5k-path-test/*
