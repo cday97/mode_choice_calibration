@@ -8,6 +8,8 @@ library(dotwhisker)
 library(ggpubr)
 library(scales)
 library(mlogit)
+library(targets)
+library(tarchetypes)
 source("R/table_maker.R")
 ```
 In this chapter, you describe the approach you have taken on the problem. This usually involves a discussion about both the data you used and the models you applied.
@@ -37,6 +39,12 @@ hbw_graph
 
 
 ## Models
+
+```{r}
+tar_read(mnlgraph)
+```
+
+
 
  
 
