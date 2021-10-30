@@ -16,7 +16,7 @@ build_barchart <- function(mcData, modelType){
   ggplot(mcData) + 
     aes(fill = forcats::fct_rev(mode), y = count, x = iterations) + 
     labs(fill='Mode', y = 'Count', x = 'Iterations') +
-    ggtitle(paste0(modelType, " Mode Choice Histogram")) +
+    ggtitle(paste0(modelType, " Modal Split Histogram")) +
     geom_bar(position="stack", stat = "identity") + 
     scale_fill_brewer(palette = "Pastel2")
 }
