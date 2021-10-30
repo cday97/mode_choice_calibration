@@ -17,10 +17,20 @@ source("R/datamaker.R")
 
 # Targets necessary to build your data and run your model
 data_targets <- list(
+  #read in and create data tables
   tar_target(mnldata, read_mc_data("data/modeChoice-slc-mnl.csv")),
-  tar_target(mnlgraph, build_barchart(mnldata, "MNL")),
   tar_target(pathdata, read_mc_data("data/modeChoice-slc-path.csv")),
-  tar_target(pathgarph, build_barchart(pathdata, "Path"))
+  tar_target(persondata, read_mc_data("data/modeChoice-slc-person.csv")),
+  tar_target(locationdata, read_mc_data("data/modeChoice-slc-location.csv")),
+  tar_target(alldata, read_mc_data("data/modeChoice-slc-all.csv")),
+  
+  #create modal split graphs
+  tar_target(mnlgraph, build_barchart(mnldata, "MNL")),
+  tar_target(pathgraph, build_barchart(pathdata, "Path")),
+  tar_target(persongraph, build_barchart(mnldata, "Person")),
+  tar_target(locationgraph, build_barchart(pathdata, "Location")),
+  tar_target(allgraph, build_barchart(pathdata, "All"))
+  
 )
 
 # Targets necessary to build the book / article
