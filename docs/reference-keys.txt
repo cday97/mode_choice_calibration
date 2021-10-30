@@ -5,3 +5,8 @@ data
 models
 findings
 additional-analysis
+default-multinomial-logit-model
+tour-purpose-model-with-path-parameters
+tour-purpose-model-with-person-parameters
+tour-purpose-model-with-location-parameters
+tour-purpose-model-with-all-parameters
