@@ -10,6 +10,7 @@ library(scales)
 library(mlogit)
 library(targets)
 library(tarchetypes)
+library(patchwork)
 source("R/table_maker.R")
 ```
 In this chapter, you describe the approach you have taken on the problem. This usually involves a discussion about both the data you used and the models you applied.
@@ -40,11 +41,32 @@ hbw_graph
 
 ## Models
 
-```{r}
-tar_read(mnlgraph)
+### Tour Purpose Model with Path Parameters
+
+```{r, echo = FALSE}
+combined <- tar_read(mnlgraph) + tar_read(pathgraph) & theme(legend.position = "bottom")
+combined + plot_layout(guides = "collect")
 ```
 
+### Tour Purpose Model with Person Parameters
 
+```{r, echo = FALSE}
+combined2 <- tar_read(mnlgraph) + tar_read(persongraph) & theme(legend.position = "bottom")
+combined2 + plot_layout(guides = "collect")
+```
 
- 
+### Tour Purpose Model with Location Parameters
+
+```{r, echo = FALSE}
+combined3 <- tar_read(mnlgraph) + tar_read(locationgraph) & theme(legend.position = "bottom")
+combined3 + plot_layout(guides = "collect")
+```
+
+### Tour Purpose Model with All Parameters
+
+```{r, echo = FALSE}
+combined4 <- tar_read(mnlgraph) + tar_read(allgraph) & theme(legend.position = "bottom")
+combined4 + plot_layout(guides = "collect")
+```
+
 
