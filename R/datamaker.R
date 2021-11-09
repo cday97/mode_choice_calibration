@@ -3,13 +3,26 @@
 #' 
 
 # reads in the mode choice data and then pivots it to a longer format
-read_mc_data<- function(raw_file){
+read_mc_data<- function(raw_file,website){
   if(!file.exists(raw_file)){
-    download.file("https://byu.app.box.com/folder/121998673825", raw_file)
+    download.file(website, raw_file)
   }
   read_csv(raw_file) %>%
     pivot_longer(!iterations, names_to = "mode", values_to = "count")
 }
+
+# reads in the events csv files and filters it to ModeChoice Events
+read_events <- function(raw_file, website){
+  if(!file.exists(raw_file)){
+    download.file(website, raw_file)
+  }
+  read_csv(raw_file, col_types = cols(.default = "c")) %>%
+    filter(type == "ModeChoice") %>%
+    group_by(mode) %>%
+    select(person, tourIndex, tourPurpose, mode, income, vehicleOwnership, availableAlternatives, personalVehicleAvailable, length, time, type) %>%
+    arrange(person)
+}
+
 
 # creates a stacked barchart of all modes across each iteration
 build_barchart <- function(mcData, modelType){
