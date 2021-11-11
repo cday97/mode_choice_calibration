@@ -23,7 +23,6 @@ read_events <- function(raw_file, website){
     arrange(person)
 }
 
-
 # creates a stacked barchart of all modes across each iteration
 build_barchart <- function(mcData, modelType){
   ggplot(mcData) + 
@@ -32,4 +31,15 @@ build_barchart <- function(mcData, modelType){
     ggtitle(paste0(modelType, " Modal Split Histogram")) +
     geom_bar(position="stack", stat = "identity") + 
     scale_fill_brewer(palette = "Pastel2")
+}
+
+read_asim <- function(raw_file){
+  if(!file.exists(raw_file)){
+    download.file("https://app.box.com/index.php?rm=box_download_shared_file&shared_name=i7kyw8zbdx7a2h4guquvfvq7qbe0emgm&file_id=f_883874323779", raw_file)
+  } 
+  read.csv(raw_file)
+}
+
+build_mnltable <- function(){
+  read_csv("data/mnltable.csv")
 }
