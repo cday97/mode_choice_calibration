@@ -41,6 +41,13 @@ graph_targets <- list(
   tar_target(alliters, build_barchart(alldata, "All"))
 )
 
+table_targets <- list(
+  #create tables to show different mode choice models used
+  tar_target(mnltable, build_mnltable()),
+  tar_target(asim_vals, read_asim("data/asim-long-R.csv"))
+  
+)
+
 # Targets necessary to build the book / article
 #book_targets <- list(
 #  tar_target(report, rmarkdown::)
@@ -49,7 +56,8 @@ graph_targets <- list(
 # End this file with a list of target objects.
 list(
   data_targets,
-  graph_targets
+  graph_targets,
+  table_targets
   #book_targets
 )
 
