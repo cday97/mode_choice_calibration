@@ -1,3 +1,4 @@
+
 # Findings
 
 This section might be called "Results" instead of "Applications," depending
@@ -18,3 +19,32 @@ Usually, it is good to use your model for something.
   - Equity or impact analysis
   
 If the analysis is substantial, it might become its own top-level section.
+
+
+### Tour Purpose Model with Path Parameters
+
+```{r, echo = FALSE}
+combined <- tar_read(mnlgraph) + tar_read(pathgraph) & theme(legend.position = "bottom")
+combined + plot_layout(guides = "collect")
+```
+
+### Tour Purpose Model with Person Parameters
+
+```{r, echo = FALSE}
+combined2 <- tar_read(mnlgraph) + tar_read(persongraph) & theme(legend.position = "bottom")
+combined2 + plot_layout(guides = "collect")
+```
+
+### Tour Purpose Model with Location Parameters
+
+```{r, echo = FALSE}
+combined3 <- tar_read(mnlgraph) + tar_read(locationgraph) & theme(legend.position = "bottom")
+combined3 + plot_layout(guides = "collect")
+```
+
+### Tour Purpose Model with All Parameters
+
+```{r, echo = FALSE}
+combined4 <- tar_read(mnlgraph) + tar_read(allgraph) & theme(legend.position = "bottom")
+combined4 + plot_layout(guides = "collect")
+```
