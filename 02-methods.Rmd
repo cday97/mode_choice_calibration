@@ -19,15 +19,15 @@ For our research, the population input corresponds to individuals in the Salt La
 
 ActivitySim implements a multifaceted mode choice model that is dependent on trip, tour, and purpose. One model determines the primary mode for each tour and a separate model determines the mode for each trip. In addition, each modal decision is dependent on the current tour purpose value. Contrastingly, BEAM's default mode choice structure uses a simple multinomial logit model as its predictor. 
 
-In our study, ActivitySim's tour-based mode choice model was coded into the BEAM framework. Mode choice decisions were based on tour purposes. In addition, ActivitySim's path, person, and location utility parameter values were added to BEAM's Multinomial Logit function. 
+In our study, ActivitySim's tour-based mode choice model was coded into the BEAM framework. Mode choice decisions were based on tour purposes. In addition, ActivitySim's path, person, and location utility parameter values were used to calculate each modal alternative.
 
-BEAM was then run using five different mode choice models. These five models are described below. 
+BEAM was run using five different mode choice models. All models implemented the multinomial logit choice model structure. However, the utility equation used to calculate each modal alternative differed between models. In addition, the tour purpose framework was added to all but the default BEAM version. The five differing models that were run are shown below.
 
-  1. BEAM's default multinomial logit function with default parameters
-  2. ActivitySim's purpose dependent multinomial logit function using only path-type parameters
-  3. ActivitySim's purpose dependent multinomial logit function using only person-type parameters 
-  4. ActivitySim's purpose dependent multinomial logit function using only location-type parameters
-  5. ActivitySim's purpose dependent multinomial logit function using all available parameters
+  1. MNL using BEAM's default utility function with default parameters
+  2. MNL using ActivitySim's purpose dependent utility function using only path-type parameters
+  3. MNL using ActivitySim's purpose dependent utility function using only person-type parameters 
+  4. MNL using ActivitySim's purpose dependent utility function using only location-type parameters
+  5. MNL using ActivitySim's purpose dependent utility function using all available parameters
 
 ## Data
 
@@ -45,14 +45,77 @@ The variables of interest that were analyzed from the events files include the f
 
 ## Models
 
-A different multinomial logit function exists for each version of BEAM that was run. Instead of writing out the lengthy equation that exists for each version, a table of utility parameters and their values are provided for each model. The following tables (Table 1 through Table 4) provide this information.
+A different utility function exists for each version of BEAM that was run. The following equations show a simplified version of the different utility equations that were inputted into the multinomial logit choice model in BEAM. There are five total equations; four of them are sections of ActivitySim's utility equation and one of them is the default BEAM equation.  
 
+### BEAM's Default Utility Equation
 
-```{r, echo = FALSE}
-tar_read(mnltable)
-```
+\begin{equation}
+  V_j = ASC_j + \beta_{c}(c) + \beta_{t}(t) + \beta_{xfer}(xfer) (\#eq:label1)
+\end{equation}
 
-(I haven't decided yet if I want to put in tables of values here of multinomial logit functions or neither. The tables are really long, but easier to understand whereas the functions are shorter but have a million variables and are harder to understand.)
+where
+  
+  - $j$ is the modal alternative, 
+  - $c$ is the cost, 
+  - $t$ is the travel time,
+  - $xfer$ is the number of transfers
 
+### Utility Equation using ActivitySim's Path Variables
 
+\begin{equation}
+  V_j = \beta_{t_v}(t_v) + \beta_{t_w}(t_w) + \beta_{t_e}(t_e) + \beta_{tr_p}(tr_p) + \beta_{xfer}(xfer) + \beta_{w_{dis}}(w_{dis}) + \\ \beta_{b_{dis}}(b_{dis}) + \beta_{d_{dis}}(d_{dis}) (\#eq:label2)
+\end{equation}  
 
+where 
+
+  - $j$ is the modal alternative,
+  - $t_v$ is the in vehicle travel time (mins),
+  - $t_w$ is the wait time (mins),
+  - $t_e$ is the egress time (mins),
+  - $tr_p$ is the proximity to transit (miles),
+  - $xfer$ is the number of transfers,
+  - $w_{dis}$ is the walk distance (miles),
+  - $b_{dis}$ is the bike distance (miles),
+  - $d_{dis}$ is the drive distance (miles),
+  - $\beta_{tr_p}$ differs between origin/destination and length,
+  - $\beta_{w_{dis}}$, $\beta_{b_{dis}}$, and $\beta_{d_{dis}}$ differ between lengths
+  - *Note:* All $\beta$ values differ between mode and tour purpose
+
+### Utility Equation using ActivitySim's Person Variables
+
+\begin{equation}
+  V_j = ASC_{auto} +  \beta_{c}(c) + \beta_{ag}(ag) (\#eq:label3)
+\end{equation}
+
+where
+  
+  - $j$ is the modal alternative, 
+  - $ASC_{auto}$ is the alternative specific constant that differs between modal alternative and auto ownership dependency,
+  - $c$ is the cost,
+  - $ag$ is the age grouping (if the person is between 0-10 or 16-19 years old), 
+  - *Note:* All $\beta$ values differ between mode and tour purpose
+
+### Utility Equation using ActivitySim's Location Variables
+
+\begin{equation}
+  V_j = \beta_{zdi}(zdi) + \beta_{cbd}(cbd) (\#eq:label4)
+\end{equation}
+
+where 
+  
+  - $j$ is the modal alternative
+  - $zdi$ is the zonal density index,
+  - $cbd$ is a classifier for zones labeled as central business district,
+  - $\beta_{zdi}$ differs between origin/destination
+  - *Note:* All $\beta$ values differ between mode and tour purpose
+  
+### Utility Equation using All of ActivitySim's Variables
+  
+\begin{equation}  
+  V_j = Eq:2.2 + Eq:2.3 + Eq:2.4 (\#eq:label5)
+\end{equation}
+
+where
+  
+  - $j$ is the modal alternative
+  
