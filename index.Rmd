@@ -1,5 +1,5 @@
 ---
-title: "The homogeneity of the mode choice estimation between an activity-based model and a microsimulation tool"
+title: "The Effects of Mode Choice Model Homogeneity between Activity-based Models and Microsimulation Tools"
 author:
   - name:  Christopher Day
     email: christophersday@gmail.com
