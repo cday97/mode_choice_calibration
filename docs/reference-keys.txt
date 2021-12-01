@@ -13,8 +13,7 @@ utility-equation-using-activitysims-person-variables
 utility-equation-using-activitysims-location-variables
 utility-equation-using-all-of-activitysims-variables
 findings
+total-modal-share
+modal-share-by-vehicle-ownership
+modal-share-by-tour-purpose
 additional-analysis
-tour-purpose-model-with-path-parameters
-tour-purpose-model-with-person-parameters
-tour-purpose-model-with-location-parameters
-tour-purpose-model-with-all-parameters

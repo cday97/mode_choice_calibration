@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title> 3 Findings | The homogeneity of the mode choice estimation between an activity-based model and a microsimulation tool</title>
+  <title> 3 Findings | The Effects of Mode Choice Model Homogeneity between Activity-based Models and Microsimulation Tools</title>
   <meta name="description" content="A short description" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content=" 3 Findings | The homogeneity of the mode choice estimation between an activity-based model and a microsimulation tool" />
+  <meta property="og:title" content=" 3 Findings | The Effects of Mode Choice Model Homogeneity between Activity-based Models and Microsimulation Tools" />
   <meta property="og:type" content="book" />
   
   
@@ -16,14 +16,14 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content=" 3 Findings | The homogeneity of the mode choice estimation between an activity-based model and a microsimulation tool" />
+  <meta name="twitter:title" content=" 3 Findings | The Effects of Mode Choice Model Homogeneity between Activity-based Models and Microsimulation Tools" />
   
   <meta name="twitter:description" content="A short description" />
   
 
 
 
-<meta name="date" content="2021-11-12" />
+<meta name="date" content="2021-11-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -93,12 +93,10 @@ div.abstract{
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="findings.html"><a href="findings.html"><i class="fa fa-check"></i><b>3</b> Findings</a><ul>
-<li class="chapter" data-level="3.1" data-path="findings.html"><a href="findings.html#additional-analysis"><i class="fa fa-check"></i><b>3.1</b> Additional Analysis</a><ul>
-<li class="chapter" data-level="3.1.1" data-path="findings.html"><a href="findings.html#tour-purpose-model-with-path-parameters"><i class="fa fa-check"></i><b>3.1.1</b> Tour Purpose Model with Path Parameters</a></li>
-<li class="chapter" data-level="3.1.2" data-path="findings.html"><a href="findings.html#tour-purpose-model-with-person-parameters"><i class="fa fa-check"></i><b>3.1.2</b> Tour Purpose Model with Person Parameters</a></li>
-<li class="chapter" data-level="3.1.3" data-path="findings.html"><a href="findings.html#tour-purpose-model-with-location-parameters"><i class="fa fa-check"></i><b>3.1.3</b> Tour Purpose Model with Location Parameters</a></li>
-<li class="chapter" data-level="3.1.4" data-path="findings.html"><a href="findings.html#tour-purpose-model-with-all-parameters"><i class="fa fa-check"></i><b>3.1.4</b> Tour Purpose Model with All Parameters</a></li>
-</ul></li>
+<li class="chapter" data-level="3.1" data-path="findings.html"><a href="findings.html#total-modal-share"><i class="fa fa-check"></i><b>3.1</b> Total Modal Share</a></li>
+<li class="chapter" data-level="3.2" data-path="findings.html"><a href="findings.html#modal-share-by-vehicle-ownership"><i class="fa fa-check"></i><b>3.2</b> Modal Share by Vehicle Ownership</a></li>
+<li class="chapter" data-level="3.3" data-path="findings.html"><a href="findings.html#modal-share-by-tour-purpose"><i class="fa fa-check"></i><b>3.3</b> Modal Share by Tour Purpose</a></li>
+<li class="chapter" data-level="3.4" data-path="findings.html"><a href="findings.html#additional-analysis"><i class="fa fa-check"></i><b>3.4</b> Additional Analysis</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -113,7 +111,7 @@ div.abstract{
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The homogeneity of the mode choice estimation between an activity-based model and a microsimulation tool</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The Effects of Mode Choice Model Homogeneity between Activity-based Models and Microsimulation Tools</a>
           </h1>
         </div>
 
@@ -123,39 +121,51 @@ div.abstract{
             <section class="normal" id="section-">
 <div id="findings" class="section level1">
 <h1><span class="header-section-number"> 3</span> Findings</h1>
-<p>This section might be called “Results” instead of “Applications,” depending
-on what it is that you are working on. But you’ll probably say something like
-“The initial model estimation results are given in Table <a href="#tab:estimation-results"><strong>??</strong></a>.”
-That table is created with the <code>modelsummary()</code> package and function.</p>
-<p>With those results presented, you can go into a discussion of what they mean.
-first, discuss the actual results that are shown in the table, and then any
-interesting or unintuitive observations.</p>
-<div id="additional-analysis" class="section level2">
-<h2><span class="header-section-number">3.1</span> Additional Analysis</h2>
-<p>Usually, it is good to use your model for something.</p>
-<ul>
-<li>Hypothetical policy analysis</li>
-<li>Statistical validation effort</li>
-<li>Equity or impact analysis</li>
-</ul>
-<p>If the analysis is substantial, it might become its own top-level section.</p>
-<div id="tour-purpose-model-with-path-parameters" class="section level3">
-<h3><span class="header-section-number">3.1.1</span> Tour Purpose Model with Path Parameters</h3>
+<p>After running each of the models, each model’s modal shares were calculated using the output events files. To thouroughly understand the affect that each model had on modal shares, different variables were used to determine them. Specifcally, the following three modal share outputs were created:</p>
+<ol style="list-style-type: decimal">
+<li>Total Modal Share</li>
+<li>Modal Share based on Vehicle Ownership</li>
+<li>Modal Share based on Tour Purpose</li>
+</ol>
+<p>(All three modal share findings were created using the <strong>ggplot2</strong> library along with the <strong>tidyverse</strong> library.)</p>
+<p>The modal share in general describes the percentage of individuals in the simulattion that chose each modal alternatives. A total of 9 modal alternatives were given to the agents:</p>
+<ol style="list-style-type: decimal">
+<li>Car</li>
+<li>Drive Transit</li>
+<li>Ride Hail</li>
+<li>Ride Hail Pooled</li>
+<li>Ride Hail Tranist</li>
+<li>Shared 2 Ride</li>
+<li>Shared 3+ Ride</li>
+<li>Walk</li>
+<li>Walk Transit</li>
+</ol>
+<p>Comparing the modal share of each of the models with the actual modal share of the region allows one to determine the optimal mode choice structure. In the following comparison, the variable <strong>WFRC</strong> represents the actual modal share of the region.</p>
+<div id="total-modal-share" class="section level2">
+<h2><span class="header-section-number">3.1</span> Total Modal Share</h2>
+<p>The total modal share simply describes the total division of mode choice alternatives for the entire population. The following figure shows the total modal share.</p>
 <p><img src="mode_choice_calibration_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<p>By examining the graph above, it can clearly be seen that the MNL model provides the car modal share closest to that of the actual region . Although this is true, the ALL model provides a closer walk modal share than the rest. The other modal alternatives all seem relatively similar.</p>
 </div>
-<div id="tour-purpose-model-with-person-parameters" class="section level3">
-<h3><span class="header-section-number">3.1.2</span> Tour Purpose Model with Person Parameters</h3>
+<div id="modal-share-by-vehicle-ownership" class="section level2">
+<h2><span class="header-section-number">3.2</span> Modal Share by Vehicle Ownership</h2>
+<p>The modal share by vehicle ownership provides a more detailed view of how the modes are distributed across the population based on their vehicle ownership status. The following figure shows the modal share by vehicle ownership.</p>
 <p><img src="mode_choice_calibration_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p>By examining the graph above, the MNL model seems to be much less accurate than the other models for agents that are auto deficient and auto sufficient. The Path model as well as the All model seem to be closest to the WFRC results in these vehicle ownership categories. As a result, the Path variable has the largest affect on the vehicle ownership modal estimation.</p>
+<p>For the no auto category though, the MNL and Path models seem to predict relatively well.The All model however, does not seem to be a very good predictor of modal shares for this category.</p>
 </div>
-<div id="tour-purpose-model-with-location-parameters" class="section level3">
-<h3><span class="header-section-number">3.1.3</span> Tour Purpose Model with Location Parameters</h3>
+<div id="modal-share-by-tour-purpose" class="section level2">
+<h2><span class="header-section-number">3.3</span> Modal Share by Tour Purpose</h2>
+<p>The modal share by tour purpose provides a more detailed view of how the modes are distributed across the population based on the tour purpose of the agent’s trip. The following figure shows the modal share by tour purpose.</p>
 <p><img src="mode_choice_calibration_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p>Unfortunately, the figure above does not include real world data from WFRC. By examing the figure though, it is clear to see that there is a difference in mode choice depending on the tour purpose chosen by the agent. For example, in all the models, car is the highest chosen mode for work trips, whereas for school trips, walking is slightly higher than carpooling and car trips.</p>
 </div>
-<div id="tour-purpose-model-with-all-parameters" class="section level3">
-<h3><span class="header-section-number">3.1.4</span> Tour Purpose Model with All Parameters</h3>
-<p><img src="mode_choice_calibration_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<div id="additional-analysis" class="section level2">
+<h2><span class="header-section-number">3.4</span> Additional Analysis</h2>
+<p>Overall, it can be seen that a microsimulation tool with a mode choice structure that mimics that of its parenting activity-based model more accurately simulates the distribution of mode choice across a population. This can be verified by examining the comparison modal share graphs; the All model seemed to most accurately variables.</p>
+<p>In addition, we see that the variables relating to Person types have the most significant effect in estimating realistic results. The Locaiton and Path types of the activity-based model seemed to relatively little in comparison to the Person types. This can be verified by examining the comparison modal share graphs as well; the Person variable seemed to be the most different when compared to the other factors.</p>
+<p>We suggest that future analyzts mimic mode choice structures between activity-based models and microsimulation tools as to ensure more realistic modal distributions.</p>
 
-</div>
 </div>
 </div>
             </section>
