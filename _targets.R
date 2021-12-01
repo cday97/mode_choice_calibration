@@ -14,38 +14,30 @@ tar_option_set(packages = c("tidyverse", "bookdown"))
 # This is where you write source(\"R/functions.R\")
 # if you keep your functions in external scripts.
 source("R/datamaker.R")
+source("R/graphmaker.R")
 
 # Targets necessary to build your data and run your model
 data_targets <- list(
-  #read in and create iteration data tables
-  tar_target(mnldata, read_mc_data("data/modeChoice-slc-mnl.csv","https://app.box.com/index.php?rm=box_download_shared_file&shared_name=4pzygsomcvyfu1z2vajtbq2ryc6xok3s&file_id=f_882969383702")),
-  tar_target(pathdata, read_mc_data("data/modeChoice-slc-path.csv", "https://app.box.com/index.php?rm=box_download_shared_file&shared_name=wxtrn5ycxsju0d10ewgm1va7bwqel69f&file_id=f_882973603197")),
-  tar_target(persondata, read_mc_data("data/modeChoice-slc-person.csv", "https://app.box.com/index.php?rm=box_download_shared_file&shared_name=zm7o2twlfxynfwsitqamllv1aek5rnzt&file_id=f_882970375554")),
-  tar_target(locationdata, read_mc_data("data/modeChoice-slc-location.csv", "https://app.box.com/index.php?rm=box_download_shared_file&shared_name=xztb1pp8gpgpbmvlsw5fsdxkp5npg1ea&file_id=f_882972877629")),
-  tar_target(alldata, read_mc_data("data/modeChoice-slc-all.csv", "https://app.box.com/index.php?rm=box_download_shared_file&shared_name=5axpw6e7v7xmx53b8s41ars7lbdsimns&file_id=f_882971002002")),
-
   #read in and create events data tables
   tar_target(mnlevents, read_events("data/events-slc-mnl.csv", "https://app.box.com/index.php?rm=box_download_shared_file&shared_name=l21hkh74pjoyeiqcak3bbulr0pquclhu&file_id=f_882996284526")),
   tar_target(pathevents, read_events("data/events-slc-path.csv", "https://app.box.com/index.php?rm=box_download_shared_file&shared_name=qcryd1cjoknzdwgparw82sbwiq1soroq&file_id=f_883000653673")),
   tar_target(personevents, read_events("data/events-slc-person.csv", "https://app.box.com/index.php?rm=box_download_shared_file&shared_name=0r5xvd63q1brcjwa8pe8ly2claa6ewl8&file_id=f_883005362878")),
   tar_target(locationevents, read_events("data/events-slc-location.csv", "https://app.box.com/index.php?rm=box_download_shared_file&shared_name=0r5xvd63q1brcjwa8pe8ly2claa6ewl8&file_id=f_883005362878")),
-  tar_target(allevents, read_events("data/events-slc-all.csv", "https://app.box.com/index.php?rm=box_download_shared_file&shared_name=ckbeyzg2vdzz379alr6yf3ukefjknr51&file_id=f_883007864655"))
+  tar_target(allevents, read_events("data/events-slc-all.csv", "https://app.box.com/index.php?rm=box_download_shared_file&shared_name=ckbeyzg2vdzz379alr6yf3ukefjknr51&file_id=f_883007864655")),
+  tar_target(wfrcdata, read_csv("data/wfrc-modalshares.csv")),
+  
+  #create basic modal split table objects
+  tar_target(modalsplits,  make_modes_table(mnlevents, pathevents, personevents, locationevents, allevents, wfrcdata)),
+  tar_target(toursplits, make_types_table(mnlevents, pathevents, personevents, locationevents, allevents, tourPurpose)),
+  tar_target(vehsplits, make_types_table(mnlevents, pathevents, personevents, locationevents, allevents, vehicleOwnership)),
+  tar_target(vehsplits2, fix_veh_table(vehsplits,wfrcdata))
 )
 
 graph_targets <- list(
-  #create mode iteration graphs
-  tar_target(mnliters, build_barchart(mnldata, "MNL")),
-  tar_target(pathiters, build_barchart(pathdata, "Path")),
-  tar_target(personiters, build_barchart(persondata, "Person")),
-  tar_target(locationiters, build_barchart(locationdata, "Location")),
-  tar_target(alliters, build_barchart(alldata, "All"))
-)
-
-table_targets <- list(
-  #create tables to show different mode choice models used
-  tar_target(mnltable, build_mnltable()),
-  tar_target(asim_vals, read_asim("data/asim-long-R.csv"))
-  
+  ##create modal split graphs
+  tar_target(modalsplit_graph, build_modalsplit(modalsplits)),
+  tar_target(toursplit_graph, build_toursplit(toursplits,"Tour Purpose")),
+  tar_target(vehsplit_graph, build_vehsplit(vehsplits2, "Vehicle Ownership"))
 )
 
 # Targets necessary to build the book / article
@@ -56,8 +48,7 @@ table_targets <- list(
 # End this file with a list of target objects.
 list(
   data_targets,
-  graph_targets,
-  table_targets
+  graph_targets
   #book_targets
 )
 
