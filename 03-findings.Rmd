@@ -1,50 +1,80 @@
 
+```{r setup2, include = FALSE}
+library(tidyverse)
+library(targets)
+library(tarchetypes)
+library(readr)
+library(tufte)
+library(dotwhisker)
+library(ggpubr)
+library(scales)
+library(mlogit)
+library(patchwork)
+source("R/table_maker.R")
+```
+
+*Please note that the results have not been calibrated so a lot of this finding is bologna*
+
 # Findings
+After running each of the models, each model's modal shares were calculated using the output events files. To thouroughly understand the affect that each  model had on modal shares, different variables were used to determine them. Specifcally, the following three modal share outputs were created:
 
-This section might be called "Results" instead of "Applications," depending
-on what it is that you are working on. But you'll probably say something like 
-"The initial model estimation results are given in Table \@ref(tab:estimation-results)."
-That table is created with the `modelsummary()` package and function.
+  1. Total Modal Share
+  2. Modal Share based on Vehicle Ownership
+  3. Modal Share based on Tour Purpose
 
-With those results presented, you can go into a discussion of what they mean.
-first, discuss the actual results that are shown in the table, and then any 
-interesting or unintuitive observations.
+(All three modal share findings were created using the **ggplot2** library along with the **tidyverse** library.)
+
+The modal share in general describes the percentage of individuals in the simulattion that chose each modal alternatives. A total of 9 modal alternatives were given to the agents:
+
+  1. Car
+  2. Drive Transit
+  3. Ride Hail
+  4. Ride Hail Pooled
+  5. Ride Hail Tranist
+  6. Shared 2 Ride
+  7. Shared 3+ Ride
+  8. Walk
+  9. Walk Transit
+  
+Comparing the modal share of each of the models with the actual modal share of the region allows one to determine the optimal mode choice structure. In the following comparison, the variable **WFRC** represents the actual modal share of the region. 
+  
+## Total Modal Share
+
+The total modal share simply describes the total division of mode choice alternatives for the entire population. The following figure shows the total modal share.
+
+```{r, echo = FALSE}
+tar_read(modalsplit_graph)
+```
+
+By examining the graph above, it can clearly be seen that the MNL model provides the car modal share closest to that of the actual region . Although this is true, the ALL model provides a closer walk modal share than the rest. The other modal alternatives all seem relatively similar. 
+
+## Modal Share by Vehicle Ownership
+
+The modal share by vehicle ownership provides a more detailed view of how the modes are distributed across the population based on their vehicle ownership status. The following figure shows the modal share by vehicle ownership.
+
+```{r, echo = FALSE}
+tar_read(vehsplit_graph)
+```
+
+By examining the graph above, the MNL model seems to be much less accurate than the other models for agents that are auto deficient and auto sufficient. The Path model as well as the All model seem to be closest to the WFRC results in these vehicle ownership categories. As a result, the Path variable has the largest affect on the vehicle ownership modal estimation. 
+
+For the no auto category though, the MNL and Path models seem to predict relatively well.The All model however, does not seem to be a very good predictor of modal shares for this category. 
+
+## Modal Share by Tour Purpose
+
+The modal share by tour purpose provides a more detailed view of how the modes are distributed across the population based on the tour purpose of the agent's trip. The following figure shows the modal share by tour purpose.
+
+```{r, echo = FALSE}
+tar_read(toursplit_graph)
+```
+
+Unfortunately, the figure above does not include real world data from WFRC. By examing the figure though, it is clear to see that there is a difference in mode choice depending on the tour purpose chosen by the agent. For example, in all the models, car is the highest chosen mode for work trips, whereas for school trips, walking is slightly higher than carpooling and car trips. 
+
 
 ## Additional Analysis
 
-Usually, it is good to use your model for something.
+Overall, it can be seen that a microsimulation tool with a mode choice structure that mimics that of its parenting activity-based model more accurately simulates the distribution of mode choice across a population. This can be verified by examining the comparison modal share graphs; the All model seemed to most accurately variables. 
 
-  - Hypothetical policy analysis
-  - Statistical validation effort
-  - Equity or impact analysis
-  
-If the analysis is substantial, it might become its own top-level section.
+In addition, we see that the variables relating to Person types have the most significant effect in estimating realistic results. The Locaiton and Path types of the activity-based model seemed to relatively little in comparison to the Person types. This can be verified by examining the comparison modal share graphs as well; the Person variable seemed to be the most different when compared to the other factors.
 
-
-### Tour Purpose Model with Path Parameters
-
-```{r, echo = FALSE}
-combined <- tar_read(mnlgraph) + tar_read(pathgraph) & theme(legend.position = "bottom")
-combined + plot_layout(guides = "collect")
-```
-
-### Tour Purpose Model with Person Parameters
-
-```{r, echo = FALSE}
-combined2 <- tar_read(mnlgraph) + tar_read(persongraph) & theme(legend.position = "bottom")
-combined2 + plot_layout(guides = "collect")
-```
-
-### Tour Purpose Model with Location Parameters
-
-```{r, echo = FALSE}
-combined3 <- tar_read(mnlgraph) + tar_read(locationgraph) & theme(legend.position = "bottom")
-combined3 + plot_layout(guides = "collect")
-```
-
-### Tour Purpose Model with All Parameters
-
-```{r, echo = FALSE}
-combined4 <- tar_read(mnlgraph) + tar_read(allgraph) & theme(legend.position = "bottom")
-combined4 + plot_layout(guides = "collect")
-```
+We suggest that future analyzts mimic mode choice structures between activity-based models and microsimulation tools as to ensure more realistic modal distributions.
