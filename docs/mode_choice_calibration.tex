@@ -43,6 +43,7 @@
 % Allow footnotes in longtable head/foot
 \IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
 \makesavenoteenv{longtable}
+\usepackage{graphicx}
 \ifxetex
   \usepackage[setpagesize=false, % page size defined by xetex
               unicode=false, % unicode breaks when used with xetex
@@ -53,7 +54,7 @@
 \hypersetup{breaklinks=true,
             bookmarks=true,
             pdfauthor={},
-            pdftitle={Calibrating the Mode Choice Models of an Activity-Based Model and a Micro-Simulation Tool},
+            pdftitle={The Effects of Mode Choice Model Consistency between Activity-based Models and Microsimulation Tools},
             colorlinks=false,
             urlcolor=blue,
             linkcolor=magenta,
@@ -87,8 +88,10 @@
 \begin{document}
 \begin{frontmatter}
 
-  \title{Calibrating the Mode Choice Models of an Activity-Based Model and a Micro-Simulation Tool}
+  \title{The Effects of Mode Choice Model Consistency between Activity-based Models and Microsimulation Tools}
     \author[Brigham Young University]{Christopher Day\corref{1}}
+   \ead{christophersday@gmail.com} 
+    \author[Brigham Young University]{Gregory Macfarlane}
    \ead{christophersday@gmail.com} 
       \address[Brigham Young University]{Civil and Environmental Engineering Department, 430 Engineering Building, Provo, Utah 84602}
       \cortext[1]{Corresponding Author}
@@ -103,164 +106,225 @@
 \hypertarget{intro}{%
 \section{Question}\label{intro}}
 
-This repository serves as a template both in how to write a report, and how
-to do so in RStudio and Bookdown. The parent repository is available as a free
-template at \url{https://github.com/byu-transpolab/template_bookdown}.
+In recent years, there has been variation in how the mode choice is estimated within activity-based travel demand modeling. Originally, \citet{bhat1999activity} stated that travel demand models should use individual trips as the primary unit of analysis, and to calculate mode at a trip level. More recently, \citet{eluru2010econometric} developed a joint multiple discrete continuous extreme value (MDCEV) framework to model the individual's mode choice (among other decisions). \citet{hasnine2021tour} listed differing estimation techniques found in activity-based models, some of which include tour-based modeling, nested model structures, iterative and dynamic processes, and simply calculating the mode choice elsewhere and feeding it in as an input. Variation amoung activity-based models has always existed.
 
-The advice in this document comes from numerous sources. Some of it is my own, some
-has been shared by others. Particular note belongs to:
+Like with activity-based models, mode choice estimation in microsimulation tools is not universal. \citet{w2016multi} explain that mode choice in MATSim is chosen using the Charypar-Nagel Utility Function, where agents pick the best alternative based on their uniquely calculated utility score. Alternatively, \citet{ciari2008new} proposed introducing multinomial logit models on the subtour level to increase mode choice estimation accuracy in MATSim. In addition, BEAM originally used a Latent Class Choice Model as its mode choice structure, but then switched to a simple multinomial logit model. Alternatively, \citet{barth2020evaluating} proposed that BEAM implements a fundamental influencing factor (FIF) mode choice model instead. As can be seen with MATSim and BEAM, no current common ground has been established in mode choice model structure among microsimulation tools.
+
+Since there is no way to model human behavior perfectly, it does not seem ideal to develop one universal technique to estimating mode choice. However, a useful advancement in travel demand modeling could be to align the internal structure of mode choice in microsimulation with mode choice in activity-based models. Oftentimes, the outputs of activity-based models are used as the inputs to microsimulation tools. Yet, the way mode choice is estimated in a microsimulation tool rarely matches that of its parent activity-based model. This heterogeneity of estimation between models may lead to increased variability in the final microsimulation results.
+
+We hypothesize that a microsimulation tool with a mode choice structure that mimics that of its parenting activity-based model more accurately simulates the distribution of mode choice across a population. In addition, we explore which population characteristics within the mode choice model has the most significant effect in estimating realistic results.
+
+\hypertarget{methods}{%
+\section{Methods}\label{methods}}
+
+In our research, the input population used to model behavior corresponds to individuals in the Salt Lake City, Utah, US Region. The activity-based model used to generate the microsimulation input data is ActivitySim \citep{activitysim}. The microsimulation tool used to generate travel behavior data is BEAM \citep{beam}.
+
+ActivitySim implements a multifaceted mode choice model that is dependent on trip, tour, and purpose. One model determines the primary mode for each tour and a separate model determines the mode for each trip. In addition, each modal decision is dependent on the current tour purpose value. Contrastingly, BEAM's default mode choice structure uses a simple multinomial logit model, independent of tour purpose value. Therefore, in order to test our hypothesis, we aligned the mode choice structure of BEAM (a microsimulation tool) with that of ActivitySim (an activity-based model).
+
+To closely align the mode choice structure of BEAM with ActivitySim, we changed much about the code structure inside of BEAM. More specifically, we wrote code that forced modal decisions to be based on tour purpose values. We also implemented the use of ActivitySim's path, person, and location utility parameter values to calculate modal alternative probabilities. These simple steps allowed us to create consistency between an activity-based model and a microsimulation tool.
+
+To test the effectiveness of our calibrated mode choice model, we conducted five different test scenarios within BEAM and compared their outputs with eachout. Each test scenario that we simulated used a multinomial logit function to determine modal probabilities. Although all used a multinomial logit function, each scenario used a different utility function to predict behavior.
+
+The first sceneario we ran used the default BEAM structure. This represented a model with an inconsistent mode choice structure \eqref{eq:label1}. The next three scenarios we ran used a purpose based model with part of ActivitySim's utility function (either using the path \eqref{eq:label2}, person \eqref{eq:label3}, or location type \eqref{eq:label4} variables). These represented models with semi-consistent mode choice structures. The last scenario we ran used a pupose based model with ActivitySim's complete utility function. This represented a model with a consistent mode choice structure \eqref{eq:label5}. Simplified versions of the utility function used in each of the scenarios can be seen in the following equations.\\
+
+\emph{Eq 1: BEAM's Default Utility Equation}
+
+\begin{equation}
+  V_j = ASC_j + \beta_{c}(c) + \beta_{t}(t) + \beta_{xfer}(xfer) \label{eq:label1}
+\end{equation}
+
+where
 
 \begin{itemize}
 \tightlist
 \item
-  Laurie Garrow
+  \(j\) is the modal alternative,
 \item
-  Lisa Rosenstein
+  \(c\) is the cost,
 \item
-  Kara Kockelman
+  \(t\) is the travel time, and
+\item
+  \(xfer\) is the number of transfers.
 \end{itemize}
 
-The introduction of your report is not simply an ``introduction'', but rather a
-\textbf{motivation} of why your project matters. What is the cost of not solving
-this problem? What have been previous attempts to solve this problem? The \emph{why}
-is more important than the \emph{what}. Why is this article worthy of archiving?
+\emph{Eq 2: Utility Equation using ActivitySim's Path Variables}
 
-A three or four-paragraph structure can work well here.
+\begin{equation}
+  V_j = \beta_{t_v}(t_v) + \beta_{t_w}(t_w) + \beta_{t_e}(t_e) + \beta_{tr_p}(tr_p) + \beta_{xfer}(xfer) + \beta_{w_{dis}}(w_{dis}) + \\ \beta_{b_{dis}}(b_{dis}) + \beta_{d_{dis}}(d_{dis}) \label{eq:label2}
+\end{equation}
+
+where
+
+\begin{itemize}
+\tightlist
+\item
+  \(j\) is the modal alternative,
+\item
+  \(t_v\) is the in vehicle travel time (mins),
+\item
+  \(t_w\) is the wait time (mins),
+\item
+  \(t_e\) is the egress time (mins),
+\item
+  \(tr_p\) is the proximity to transit (miles),
+\item
+  \(xfer\) is the number of transfers,
+\item
+  \(w_{dis}\) is the walk distance (miles),
+\item
+  \(b_{dis}\) is the bike distance (miles),
+\item
+  \(d_{dis}\) is the drive distance (miles),
+\item
+  \(\beta_{tr_p}\) differs between origin/destination and length, and
+\item
+  \(\beta_{w_{dis}}\), \(\beta_{b_{dis}}\), and \(\beta_{d_{dis}}\) differ between lengths.
+\item
+  \emph{Note:} All \(\beta\) values differ between mode and tour purpose.
+\end{itemize}
+
+\emph{Eq 3: Utility Equation using ActivitySim's Person Variables}
+
+\begin{equation}
+  V_j = ASC_{auto} +  \beta_{c}(c) + \beta_{ag}(ag) \label{eq:label3}
+\end{equation}
+
+where
+
+\begin{itemize}
+\tightlist
+\item
+  \(j\) is the modal alternative,
+\item
+  \(ASC_{auto}\) is the alternative specific constant that differs between modal alternative and auto ownership dependency,
+\item
+  \(c\) is the cost, and
+\item
+  \(ag\) is the age grouping (if the person is between 0-10 or 16-19 years old).
+\item
+  \emph{Note:} All \(\beta\) values differ between mode and tour purpose.
+\end{itemize}
+
+\emph{Eq 4: Utility Equation using ActivitySim's Location Variables}
+
+\begin{equation}
+  V_j = \beta_{zdi}(zdi) + \beta_{cbd}(cbd) \label{eq:label4}
+\end{equation}
+
+where
+
+\begin{itemize}
+\tightlist
+\item
+  \(j\) is the modal alternative
+\item
+  \(zdi\) is the zonal density index,
+\item
+  \(cbd\) is a classifier for zones labeled as central business district, and
+\item
+  \(\beta_{zdi}\) differs between origin/destination.
+\item
+  \emph{Note:} All \(\beta\) values differ between mode and tour purpose.
+\end{itemize}
+
+\emph{Eq 5: Utility Equation using All of ActivitySim's Variables}
+
+\begin{equation}  
+  V_j = Eq:2.2 + Eq:2.3 + Eq:2.4 \label{eq:label5}
+\end{equation}
+
+where
+
+\begin{itemize}
+\tightlist
+\item
+  \(j\) is the modal alternative.
+\end{itemize}
+
+\hypertarget{findings}{%
+\section{Findings}\label{findings}}
+
+The findings of our study are gathered from the events files generated by BEAM foreach scenario run. The events file stores all the decisions made by all individuals during the simulation, including their mode choice decisions. Using the events files, each model's modal shares were thus calculated. To thouroughly understand the affect that each model had on modal shares, modal shares dependent on different variables were calculated. Specifically, the following three modal share outputs were created:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  Identify the problem and why it matters.
+  Total Modal Share
 \item
-  A high-level overview of some previous attempts to solve it, and why those
-  attempts were limited (this might be two paragraphs).
+  Modal Share based on Vehicle Ownership
 \item
-  Describe the approach (very briefly), and provide an overview of what is
-  to come. ``In this paper we present \ldots{}''
+  Modal Share based on Tour Purpose
 \end{enumerate}
 
-\hypertarget{methods}{%
-\section{Methods}\label{methods}}
+The modal share in general describes the percentage of individuals in the simulattion that chose each modal alternatives. A total of 9 modal alternatives were given to the agents:
 
-In this chapter, you describe the approach you have taken on the problem. This
-usually involves a discussion about both the data you used and the models you
-applied.
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Car
+\item
+  Drive Transit
+\item
+  Ride Hail
+\item
+  Ride Hail Pooled
+\item
+  Ride Hail Tranist
+\item
+  Shared 2 Ride
+\item
+  Shared 3+ Ride
+\item
+  Walk
+\item
+  Walk Transit
+\end{enumerate}
 
-\hypertarget{data}{%
-\subsection{Data}\label{data}}
+Comparing the modal share of each of the models with the actual modal share of the region allows one to determine the optimal mode choice structure. In the following comparison, the variable \emph{WFRC} represents the actual modal share of the region.
 
-Discuss where you got your data, how you cleaned it, any assumptions you made.
+\hypertarget{total-modal-share}{%
+\subsection{Total Modal Share}\label{total-modal-share}}
 
-Often there will be a table describing summary statistics of your dataset.
-Table \ref{tab:datasummary} shows a nice table using the \href{https://vincentarelbundock.github.io/modelsummary/articles/datasummary.html}{\texttt{datasummary}}
-functions in the \texttt{modelsummary} package.
+The total modal share simply describes the total division of mode choice alternatives for the entire population. The following figure shows the total modal share.
 
-\begin{table}
-
-\caption{\label{tab:datasummary}Descriptive Statistics of Dataset}
+\begin{figure}
 \centering
-\begin{tabular}[t]{llllllllllllll}
-\toprule
-\multicolumn{2}{c}{ } & \multicolumn{2}{c}{regcar (N=10930)} & \multicolumn{2}{c}{sportuv (N=1048)} & \multicolumn{2}{c}{sportcar (N=880)} & \multicolumn{2}{c}{stwagon (N=4446)} & \multicolumn{2}{c}{truck (N=5628)} & \multicolumn{2}{c}{van (N=4992)} \\
-\cmidrule(l{3pt}r{3pt}){3-4} \cmidrule(l{3pt}r{3pt}){5-6} \cmidrule(l{3pt}r{3pt}){7-8} \cmidrule(l{3pt}r{3pt}){9-10} \cmidrule(l{3pt}r{3pt}){11-12} \cmidrule(l{3pt}r{3pt}){13-14}
-  &    & Mean & Std. Dev. & Mean  & Std. Dev.  & Mean   & Std. Dev.   & Mean    & Std. Dev.    & Mean     & Std. Dev.     & Mean      & Std. Dev.     \\
-\midrule
-price &  & 4.2 & 1.9 & 4.7 & 1.9 & 4.8 & 2.2 & 4.1 & 1.9 & 4.2 & 2.0 & 4.2 & 1.9\\
-range &  & 237.2 & 94.5 & 241.6 & 94.7 & 233.6 & 96.7 & 238.7 & 94.3 & 238.2 & 93.1 & 236.8 & 94.7\\
-size &  & 2.4 & 0.8 & 2.1 & 1.0 & 1.4 & 1.0 & 2.3 & 0.8 & 2.4 & 0.8 & 2.5 & 0.7\\
-\midrule
- &  & N & \% & N & \% & N & \% & N & \% & N & \% & N & \%\\
-fuel & gasoline & 2704 & 24.7 & 280 & 26.7 & 218 & 24.8 & 1096 & 24.7 & 1413 & 25.1 & 1247 & 25.0\\
- & methanol & 2729 & 25.0 & 246 & 23.5 & 225 & 25.6 & 1091 & 24.5 & 1445 & 25.7 & 1216 & 24.4\\
- & cng & 2767 & 25.3 & 260 & 24.8 & 238 & 27.0 & 1109 & 24.9 & 1360 & 24.2 & 1282 & 25.7\\
- & electric & 2730 & 25.0 & 262 & 25.0 & 199 & 22.6 & 1150 & 25.9 & 1410 & 25.1 & 1247 & 25.0\\
-\bottomrule
-\end{tabular}
-\end{table}
+\includegraphics{mode_choice_calibration_files/figure-latex/unnamed-chunk-1-1.pdf}
+\caption{\label{fig:unnamed-chunk-1}TOtal Modal Split by Model Type}
+\end{figure}
 
-\hypertarget{models}{%
-\subsection{Models}\label{models}}
+By examining the graph above, it can clearly be seen that the MNL model provides the car modal share closest to that of the actual region . Although this is true, the ALL model provides a closer walk modal share than the rest. The other modal alternatives all seem relatively similar.
 
-If your work is mostly a new model, you probably will have introduced some
-details in the literature review. But this is where you describe the
-mathematical construction of your model, the variables it uses, and other
-things. Some methods are so common (linear regression) that it is unnecessary to
-explore them in detail. But others will need to be described, often with
-mathematics. For example, the probability of a multinomial logit model is
+\hypertarget{modal-share-by-vehicle-ownership}{%
+\subsection{Modal Share by Vehicle Ownership}\label{modal-share-by-vehicle-ownership}}
 
-\begin{equation}
-  P_i(X_{in}) = \frac{e^{X_{in}\beta_i}}{\sum_{j \in J}e^{X_{jn}\beta_j}}
-  \label{eq:mnl}
-\end{equation}
+The modal share by vehicle ownership provides a more detailed view of how the modes are distributed across the population based on their vehicle ownership status. The following figure shows the modal share by vehicle ownership.
 
-Use \href{https://www.overleaf.com/learn/latex/mathematical_expressions}{LaTeX mathematics}.
-You'll want to number display equations so that you can
-refer to them later in the manuscript. Other simpler math can be described inline,
-like saying that \(i, j \in J\). Details on using equations in bookdown are available
-\href{https://bookdown.org/yihui/bookdown/markdown-extensions-by-bookdown.html}{here}.
+\includegraphics{mode_choice_calibration_files/figure-latex/unnamed-chunk-2-1.pdf}
 
-\hypertarget{findings}{%
-\section{Findings}\label{findings}}
+By examining the graph above, the MNL model seems to be much less accurate than the other models for agents that are auto deficient and auto sufficient. The Path model as well as the All model seem to be closest to the WFRC results in these vehicle ownership categories. As a result, the Path variable has the largest affect on the vehicle ownership modal estimation.
 
-This section might be called ``Results'' instead of ``Applications,'' depending
-on what it is that you are working on. But you'll probably say something like
-``The initial model estimation results are given in Table \ref{tab:estimation-results}.''
-That table is created with the \texttt{modelsummary()} package and function.
+For the no auto category though, the MNL and Path models seem to predict relatively well.The All model however, does not seem to be a very good predictor of modal shares for this category.
 
-\begin{table}
+\hypertarget{modal-share-by-tour-purpose}{%
+\subsection{Modal Share by Tour Purpose}\label{modal-share-by-tour-purpose}}
 
-\caption{\label{tab:estimation-results}Model Estimation Results}
-\centering
-\begin{tabular}[t]{lcc}
-\toprule
-  & Model 1 & Model 2\\
-\midrule
-typesportuv & 0.833 (5.945) & 0.815 (5.805)\\
- & (0.140) & (0.140)\\
-typesportcar & 0.614 (4.192) & 0.628 (4.259)\\
- & (0.146) & (0.147)\\
-typestwagon & -1.415 (-22.979) & -1.428 (-23.119)\\
- & (0.062) & (0.062)\\
-typetruck & -1.002 (-20.600) & -1.010 (-20.673)\\
- & (0.049) & (0.049)\\
-typevan & -0.812 (-17.431) & -0.806 (-17.183)\\
- & (0.047) & (0.047)\\
-price & -0.221 (-8.475) & -0.191 (-7.130)\\
- & (0.026) & (0.027)\\
-range &  & 0.003 (18.923)\\
- &  & (0.000)\\
-\midrule
-Num.Obs. & 4654 & 4654\\
-AIC & 15460.9 & 15075.0\\
-BIC &  & \\
-Log.Lik. & -7724.469 & -7530.510\\
-rho2 & -0.052 & -0.026\\
-rho20 & 0.074 & 0.097\\
-\bottomrule
-\end{tabular}
-\end{table}
+The modal share by tour purpose provides a more detailed view of how the modes are distributed across the population based on the tour purpose of the agent's trip. The following figure shows the modal share by tour purpose.
 
-With those results presented, you can go into a discussion of what they mean.
-first, discuss the actual results that are shown in the table, and then any
-interesting or unintuitive observations.
+\includegraphics{mode_choice_calibration_files/figure-latex/unnamed-chunk-3-1.pdf}
+
+Unfortunately, the figure above does not include real world data from WFRC. By examing the figure though, it is clear to see that there is a difference in mode choice depending on the tour purpose chosen by the agent. For example, in all the models, car is the highest chosen mode for work trips, whereas for school trips, walking is slightly higher than carpooling and car trips.
 
 \hypertarget{additional-analysis}{%
 \subsection{Additional Analysis}\label{additional-analysis}}
 
-Usually, it is good to use your model for something.
+Overall, it can be seen that a microsimulation tool with a mode choice structure that mimics that of its parenting activity-based model does not seem to more accurately simulate the distribution of mode choice across a population. This can be verified by examining the comparison modal share graphs; the All model does not seem to most accurately predict actual modal shares.
 
-\begin{itemize}
-\tightlist
-\item
-  Hypothetical policy analysis
-\item
-  Statistical validation effort
-\item
-  Equity or impact analysis
-\end{itemize}
+Although this is true, we see that the variables relating to Person types have the most significant effect in estimating realistic results. The Location and Path variable tyes seemed to predict relatively little in comparison to the Person types. This can be verified by examining the comparison modal share graphs; the Person variable seemed to be the most different when compared to the other factors.
 
-If the analysis is substantial, it might become its own top-level section.
+In conclusion, we suggest that future analyzts attempt to rerun a similar scenario that has been presented. Unfortunately, sufficient model calibration was not able to be completed. With a more accurately calibrated scenario, we hypothesize that a microsimulation tool with a mimiced mode choice structure will more accurately simulate the mode choice of a population. We also advise analyzts to pay special attention to Person varaible types, as they have a greater affect in modal decisions than other variable types.
 
 \bibliography{book.bib}
 

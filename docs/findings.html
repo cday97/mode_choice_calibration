@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title> 3 Findings | The Effects of Mode Choice Model Homogeneity between Activity-based Models and Microsimulation Tools</title>
+  <title> 3 Findings | The Effects of Mode Choice Model Consistency between Activity-based Models and Microsimulation Tools</title>
   <meta name="description" content="A short description" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content=" 3 Findings | The Effects of Mode Choice Model Homogeneity between Activity-based Models and Microsimulation Tools" />
+  <meta property="og:title" content=" 3 Findings | The Effects of Mode Choice Model Consistency between Activity-based Models and Microsimulation Tools" />
   <meta property="og:type" content="book" />
   
   
@@ -16,14 +16,14 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content=" 3 Findings | The Effects of Mode Choice Model Homogeneity between Activity-based Models and Microsimulation Tools" />
+  <meta name="twitter:title" content=" 3 Findings | The Effects of Mode Choice Model Consistency between Activity-based Models and Microsimulation Tools" />
   
   <meta name="twitter:description" content="A short description" />
   
 
 
 
-<meta name="date" content="2021-11-30" />
+<meta name="date" content="2021-12-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="methods.html"/>
-<link rel="next" href="references.html"/>
+
 <style type="text/css">
 p.abstract{
   text-align: center;
@@ -82,23 +82,13 @@ div.abstract{
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Question</a></li>
-<li class="chapter" data-level="2" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>2</b> Methods</a><ul>
-<li class="chapter" data-level="2.1" data-path="methods.html"><a href="methods.html#data"><i class="fa fa-check"></i><b>2.1</b> Data</a></li>
-<li class="chapter" data-level="2.2" data-path="methods.html"><a href="methods.html#models"><i class="fa fa-check"></i><b>2.2</b> Models</a><ul>
-<li class="chapter" data-level="2.2.1" data-path="methods.html"><a href="methods.html#beams-default-utility-equation"><i class="fa fa-check"></i><b>2.2.1</b> BEAM’s Default Utility Equation</a></li>
-<li class="chapter" data-level="2.2.2" data-path="methods.html"><a href="methods.html#utility-equation-using-activitysims-path-variables"><i class="fa fa-check"></i><b>2.2.2</b> Utility Equation using ActivitySim’s Path Variables</a></li>
-<li class="chapter" data-level="2.2.3" data-path="methods.html"><a href="methods.html#utility-equation-using-activitysims-person-variables"><i class="fa fa-check"></i><b>2.2.3</b> Utility Equation using ActivitySim’s Person Variables</a></li>
-<li class="chapter" data-level="2.2.4" data-path="methods.html"><a href="methods.html#utility-equation-using-activitysims-location-variables"><i class="fa fa-check"></i><b>2.2.4</b> Utility Equation using ActivitySim’s Location Variables</a></li>
-<li class="chapter" data-level="2.2.5" data-path="methods.html"><a href="methods.html#utility-equation-using-all-of-activitysims-variables"><i class="fa fa-check"></i><b>2.2.5</b> Utility Equation using All of ActivitySim’s Variables</a></li>
-</ul></li>
-</ul></li>
+<li class="chapter" data-level="2" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>2</b> Methods</a></li>
 <li class="chapter" data-level="3" data-path="findings.html"><a href="findings.html"><i class="fa fa-check"></i><b>3</b> Findings</a><ul>
 <li class="chapter" data-level="3.1" data-path="findings.html"><a href="findings.html#total-modal-share"><i class="fa fa-check"></i><b>3.1</b> Total Modal Share</a></li>
 <li class="chapter" data-level="3.2" data-path="findings.html"><a href="findings.html#modal-share-by-vehicle-ownership"><i class="fa fa-check"></i><b>3.2</b> Modal Share by Vehicle Ownership</a></li>
 <li class="chapter" data-level="3.3" data-path="findings.html"><a href="findings.html#modal-share-by-tour-purpose"><i class="fa fa-check"></i><b>3.3</b> Modal Share by Tour Purpose</a></li>
 <li class="chapter" data-level="3.4" data-path="findings.html"><a href="findings.html#additional-analysis"><i class="fa fa-check"></i><b>3.4</b> Additional Analysis</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -111,7 +101,7 @@ div.abstract{
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The Effects of Mode Choice Model Homogeneity between Activity-based Models and Microsimulation Tools</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The Effects of Mode Choice Model Consistency between Activity-based Models and Microsimulation Tools</a>
           </h1>
         </div>
 
@@ -121,13 +111,12 @@ div.abstract{
             <section class="normal" id="section-">
 <div id="findings" class="section level1">
 <h1><span class="header-section-number"> 3</span> Findings</h1>
-<p>After running each of the models, each model’s modal shares were calculated using the output events files. To thouroughly understand the affect that each model had on modal shares, different variables were used to determine them. Specifcally, the following three modal share outputs were created:</p>
+<p>The findings of our study are gathered from the events files generated by BEAM foreach scenario run. The events file stores all the decisions made by all individuals during the simulation, including their mode choice decisions. Using the events files, each model’s modal shares were thus calculated. To thouroughly understand the affect that each model had on modal shares, modal shares dependent on different variables were calculated. Specifically, the following three modal share outputs were created:</p>
 <ol style="list-style-type: decimal">
 <li>Total Modal Share</li>
 <li>Modal Share based on Vehicle Ownership</li>
 <li>Modal Share based on Tour Purpose</li>
 </ol>
-<p>(All three modal share findings were created using the <strong>ggplot2</strong> library along with the <strong>tidyverse</strong> library.)</p>
 <p>The modal share in general describes the percentage of individuals in the simulattion that chose each modal alternatives. A total of 9 modal alternatives were given to the agents:</p>
 <ol style="list-style-type: decimal">
 <li>Car</li>
@@ -140,11 +129,16 @@ div.abstract{
 <li>Walk</li>
 <li>Walk Transit</li>
 </ol>
-<p>Comparing the modal share of each of the models with the actual modal share of the region allows one to determine the optimal mode choice structure. In the following comparison, the variable <strong>WFRC</strong> represents the actual modal share of the region.</p>
+<p>Comparing the modal share of each of the models with the actual modal share of the region allows one to determine the optimal mode choice structure. In the following comparison, the variable <em>WFRC</em> represents the actual modal share of the region.</p>
 <div id="total-modal-share" class="section level2">
 <h2><span class="header-section-number">3.1</span> Total Modal Share</h2>
 <p>The total modal share simply describes the total division of mode choice alternatives for the entire population. The following figure shows the total modal share.</p>
-<p><img src="mode_choice_calibration_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<div class="figure"><span style="display:block;" id="fig:unnamed-chunk-1"></span>
+<img src="mode_choice_calibration_files/figure-html/unnamed-chunk-1-1.png" alt="TOtal Modal Split by Model Type" width="672" />
+<p class="caption">
+Figure 3.1: TOtal Modal Split by Model Type
+</p>
+</div>
 <p>By examining the graph above, it can clearly be seen that the MNL model provides the car modal share closest to that of the actual region . Although this is true, the ALL model provides a closer walk modal share than the rest. The other modal alternatives all seem relatively similar.</p>
 </div>
 <div id="modal-share-by-vehicle-ownership" class="section level2">
@@ -162,10 +156,37 @@ div.abstract{
 </div>
 <div id="additional-analysis" class="section level2">
 <h2><span class="header-section-number">3.4</span> Additional Analysis</h2>
-<p>Overall, it can be seen that a microsimulation tool with a mode choice structure that mimics that of its parenting activity-based model more accurately simulates the distribution of mode choice across a population. This can be verified by examining the comparison modal share graphs; the All model seemed to most accurately variables.</p>
-<p>In addition, we see that the variables relating to Person types have the most significant effect in estimating realistic results. The Locaiton and Path types of the activity-based model seemed to relatively little in comparison to the Person types. This can be verified by examining the comparison modal share graphs as well; the Person variable seemed to be the most different when compared to the other factors.</p>
-<p>We suggest that future analyzts mimic mode choice structures between activity-based models and microsimulation tools as to ensure more realistic modal distributions.</p>
+<p>Overall, it can be seen that a microsimulation tool with a mode choice structure that mimics that of its parenting activity-based model does not seem to more accurately simulate the distribution of mode choice across a population. This can be verified by examining the comparison modal share graphs; the All model does not seem to most accurately predict actual modal shares.</p>
+<p>Although this is true, we see that the variables relating to Person types have the most significant effect in estimating realistic results. The Location and Path variable tyes seemed to predict relatively little in comparison to the Person types. This can be verified by examining the comparison modal share graphs; the Person variable seemed to be the most different when compared to the other factors.</p>
+<p>In conclusion, we suggest that future analyzts attempt to rerun a similar scenario that has been presented. Unfortunately, sufficient model calibration was not able to be completed. With a more accurately calibrated scenario, we hypothesize that a microsimulation tool with a mimiced mode choice structure will more accurately simulate the mode choice of a population. We also advise analyzts to pay special attention to Person varaible types, as they have a greater affect in modal decisions than other variable types.</p>
 
+
+<div id="refs" class="references">
+<div>
+<p>“ActivitySim.” 2021. <em>ActivitySim</em>. Metropolitan Transportation Commission. <a href="https://activitysim.github.io/activitysim/">https://activitysim.github.io/activitysim/</a>.</p>
+</div>
+<div>
+<p>Barth, Matthew, Peng Hao, Guoyuan Wu, Shams Tanvir, Chao Wang, Jeff Gonder, Jacob Holden, Andrew Devall, and Bingrong Sun. 2020. “Evaluating Energy Efficiency Opportunities from Connected and Automated Vehicle Deployments Coupled with Shared Mobility in California.” University of California-Riverside.</p>
+</div>
+<div>
+<p>“BEAM’s User Guide.” 2021. <em>User’s Guide - Beam 0.7.0 Documentation</em>. Lawrence Berkeley National Laboratory. <a href="https://beam.readthedocs.io/en/latest/users.html">https://beam.readthedocs.io/en/latest/users.html</a>.</p>
+</div>
+<div>
+<p>Bhat, Chandra R, and Frank S Koppelman. 1999. “Activity-Based Modeling of Travel Demand.” In <em>Handbook of Transportation Science</em>, 35–61. Springer.</p>
+</div>
+<div>
+<p>Ciari, Francesco, Michael Balmer, and Kay W Axhausen. 2008. “A New Mode Choice Model for a Multi-Agent Transport Simulation.” <em>Arbeitsberichte Verkehrs-Und Raumplanung</em> 529.</p>
+</div>
+<div>
+<p>Eluru, Naveen, Abdul Pinjari, Ram Pendyala, and Chandra Bhat. 2010. “An Econometric Multi-Dimensional Choice Model of Activity-Travel Behavior.” <em>Transportation Letters</em> 2 (4): 217–30.</p>
+</div>
+<div>
+<p>Hasnine, Md Sami, and Khandker Nurul Habib. 2021. “Tour-Based Mode Choice Modelling as the Core of an Activity-Based Travel Demand Modelling Framework: A Review of State-of-the-Art.” <em>Transport Reviews</em> 41 (1): 5–26.</p>
+</div>
+<div>
+<p>W Axhausen, Kay, Andreas Horni, and Kai Nagel. 2016. <em>The Multi-Agent Transport Simulation Matsim</em>. Ubiquity Press.</p>
+</div>
+</div>
 </div>
 </div>
             </section>
@@ -173,8 +194,8 @@ div.abstract{
           </div>
         </div>
       </div>
-<a href="methods.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="methods.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

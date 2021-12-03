@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title> 2 Methods | The Effects of Mode Choice Model Homogeneity between Activity-based Models and Microsimulation Tools</title>
+  <title> 2 Methods | The Effects of Mode Choice Model Consistency between Activity-based Models and Microsimulation Tools</title>
   <meta name="description" content="A short description" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content=" 2 Methods | The Effects of Mode Choice Model Homogeneity between Activity-based Models and Microsimulation Tools" />
+  <meta property="og:title" content=" 2 Methods | The Effects of Mode Choice Model Consistency between Activity-based Models and Microsimulation Tools" />
   <meta property="og:type" content="book" />
   
   
@@ -16,14 +16,14 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content=" 2 Methods | The Effects of Mode Choice Model Homogeneity between Activity-based Models and Microsimulation Tools" />
+  <meta name="twitter:title" content=" 2 Methods | The Effects of Mode Choice Model Consistency between Activity-based Models and Microsimulation Tools" />
   
   <meta name="twitter:description" content="A short description" />
   
 
 
 
-<meta name="date" content="2021-11-30" />
+<meta name="date" content="2021-12-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -82,23 +82,13 @@ div.abstract{
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Question</a></li>
-<li class="chapter" data-level="2" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>2</b> Methods</a><ul>
-<li class="chapter" data-level="2.1" data-path="methods.html"><a href="methods.html#data"><i class="fa fa-check"></i><b>2.1</b> Data</a></li>
-<li class="chapter" data-level="2.2" data-path="methods.html"><a href="methods.html#models"><i class="fa fa-check"></i><b>2.2</b> Models</a><ul>
-<li class="chapter" data-level="2.2.1" data-path="methods.html"><a href="methods.html#beams-default-utility-equation"><i class="fa fa-check"></i><b>2.2.1</b> BEAM’s Default Utility Equation</a></li>
-<li class="chapter" data-level="2.2.2" data-path="methods.html"><a href="methods.html#utility-equation-using-activitysims-path-variables"><i class="fa fa-check"></i><b>2.2.2</b> Utility Equation using ActivitySim’s Path Variables</a></li>
-<li class="chapter" data-level="2.2.3" data-path="methods.html"><a href="methods.html#utility-equation-using-activitysims-person-variables"><i class="fa fa-check"></i><b>2.2.3</b> Utility Equation using ActivitySim’s Person Variables</a></li>
-<li class="chapter" data-level="2.2.4" data-path="methods.html"><a href="methods.html#utility-equation-using-activitysims-location-variables"><i class="fa fa-check"></i><b>2.2.4</b> Utility Equation using ActivitySim’s Location Variables</a></li>
-<li class="chapter" data-level="2.2.5" data-path="methods.html"><a href="methods.html#utility-equation-using-all-of-activitysims-variables"><i class="fa fa-check"></i><b>2.2.5</b> Utility Equation using All of ActivitySim’s Variables</a></li>
-</ul></li>
-</ul></li>
+<li class="chapter" data-level="2" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>2</b> Methods</a></li>
 <li class="chapter" data-level="3" data-path="findings.html"><a href="findings.html"><i class="fa fa-check"></i><b>3</b> Findings</a><ul>
 <li class="chapter" data-level="3.1" data-path="findings.html"><a href="findings.html#total-modal-share"><i class="fa fa-check"></i><b>3.1</b> Total Modal Share</a></li>
 <li class="chapter" data-level="3.2" data-path="findings.html"><a href="findings.html#modal-share-by-vehicle-ownership"><i class="fa fa-check"></i><b>3.2</b> Modal Share by Vehicle Ownership</a></li>
 <li class="chapter" data-level="3.3" data-path="findings.html"><a href="findings.html#modal-share-by-tour-purpose"><i class="fa fa-check"></i><b>3.3</b> Modal Share by Tour Purpose</a></li>
 <li class="chapter" data-level="3.4" data-path="findings.html"><a href="findings.html#additional-analysis"><i class="fa fa-check"></i><b>3.4</b> Additional Analysis</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -111,7 +101,7 @@ div.abstract{
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The Effects of Mode Choice Model Homogeneity between Activity-based Models and Microsimulation Tools</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The Effects of Mode Choice Model Consistency between Activity-based Models and Microsimulation Tools</a>
           </h1>
         </div>
 
@@ -121,36 +111,13 @@ div.abstract{
             <section class="normal" id="section-">
 <div id="methods" class="section level1">
 <h1><span class="header-section-number"> 2</span> Methods</h1>
-<p>For our research, the population input corresponds to individuals in the Salt Lake City, Utah, US Region. The activity-based model used to generate the microsimulation input data is ActivitySim <span class="citation">(“ActivitySim” <a href="#ref-activitysim" role="doc-biblioref">2021</a>)</span>. The microsimulation tool used to generate travel behavior data is BEAM <span class="citation">(“BEAM’s User Guide” <a href="#ref-beam" role="doc-biblioref">2021</a>)</span>.</p>
-<p>ActivitySim implements a multifaceted mode choice model that is dependent on trip, tour, and purpose. One model determines the primary mode for each tour and a separate model determines the mode for each trip. In addition, each modal decision is dependent on the current tour purpose value. Contrastingly, BEAM’s default mode choice structure uses a simple multinomial logit model as its predictor.</p>
-<p>In our study, ActivitySim’s tour-based mode choice model was coded into the BEAM framework. Mode choice decisions were based on tour purposes. In addition, ActivitySim’s path, person, and location utility parameter values were used to calculate each modal alternative.</p>
-<p>BEAM was run using five different mode choice models. All models implemented the multinomial logit choice model structure. However, the utility equation used to calculate each modal alternative differed between models. In addition, the tour purpose framework was added to all but the default BEAM version. The five differing models that were run are shown below.</p>
-<ol style="list-style-type: decimal">
-<li>MNL using BEAM’s default utility function with default parameters</li>
-<li>MNL using ActivitySim’s purpose dependent utility function using only path-type parameters</li>
-<li>MNL using ActivitySim’s purpose dependent utility function using only person-type parameters</li>
-<li>MNL using ActivitySim’s purpose dependent utility function using only location-type parameters</li>
-<li>MNL using ActivitySim’s purpose dependent utility function using all available parameters</li>
-</ol>
-<div id="data" class="section level2">
-<h2><span class="header-section-number">2.1</span> Data</h2>
-<p>The data analyzed in our study includes the events files generated by BEAM for each BEAM structure. The events file stores all the decisions made by all individuals during the simulation, including their mode choice decisions. The events files generated from each version of BEAM (the 5 versions explained above) were compared with each other.</p>
-<p>The variables of interest that were analyzed from the events files include the following:</p>
-<ul>
-<li>Person ID</li>
-<li>Trip ID</li>
-<li>Tour Index</li>
-<li>Tour Purpose</li>
-<li>Mode Chosen</li>
-<li>Vehicle Ownership</li>
-<li>Income</li>
-</ul>
-</div>
-<div id="models" class="section level2">
-<h2><span class="header-section-number">2.2</span> Models</h2>
-<p>A different utility function exists for each version of BEAM that was run. The following equations show a simplified version of the different utility equations that were inputted into the multinomial logit choice model in BEAM. There are five total equations; four of them are sections of ActivitySim’s utility equation and one of them is the default BEAM equation.</p>
-<div id="beams-default-utility-equation" class="section level3">
-<h3><span class="header-section-number">2.2.1</span> BEAM’s Default Utility Equation</h3>
+<p>In our research, the input population used to model behavior corresponds to individuals in the Salt Lake City, Utah, US Region. The activity-based model used to generate the microsimulation input data is ActivitySim <span class="citation">(“ActivitySim” <a href="#ref-activitysim" role="doc-biblioref">2021</a>)</span>. The microsimulation tool used to generate travel behavior data is BEAM <span class="citation">(“BEAM’s User Guide” <a href="#ref-beam" role="doc-biblioref">2021</a>)</span>.</p>
+<p>ActivitySim implements a multifaceted mode choice model that is dependent on trip, tour, and purpose. One model determines the primary mode for each tour and a separate model determines the mode for each trip. In addition, each modal decision is dependent on the current tour purpose value. Contrastingly, BEAM’s default mode choice structure uses a simple multinomial logit model, independent of tour purpose value. Therefore, in order to test our hypothesis, we aligned the mode choice structure of BEAM (a microsimulation tool) with that of ActivitySim (an activity-based model).</p>
+<p>To closely align the mode choice structure of BEAM with ActivitySim, we changed much about the code structure inside of BEAM. More specifically, we wrote code that forced modal decisions to be based on tour purpose values. We also implemented the use of ActivitySim’s path, person, and location utility parameter values to calculate modal alternative probabilities. These simple steps allowed us to create consistency between an activity-based model and a microsimulation tool.</p>
+<p>To test the effectiveness of our calibrated mode choice model, we conducted five different test scenarios within BEAM and compared their outputs with eachout. Each test scenario that we simulated used a multinomial logit function to determine modal probabilities. Although all used a multinomial logit function, each scenario used a different utility function to predict behavior.</p>
+<p>The first sceneario we ran used the default BEAM structure. This represented a model with an inconsistent mode choice structure <a href="methods.html#eq:label1">(2.1)</a>. The next three scenarios we ran used a purpose based model with part of ActivitySim’s utility function (either using the path <a href="methods.html#eq:label2">(2.2)</a>, person <a href="methods.html#eq:label3">(2.3)</a>, or location type <a href="methods.html#eq:label4">(2.4)</a> variables). These represented models with semi-consistent mode choice structures. The last scenario we ran used a pupose based model with ActivitySim’s complete utility function. This represented a model with a consistent mode choice structure <a href="methods.html#eq:label5">(2.5)</a>. Simplified versions of the utility function used in each of the scenarios can be seen in the following equations.<br />
+</p>
+<p><em>Eq 1: BEAM’s Default Utility Equation</em></p>
 <p><span class="math display" id="eq:label1">\[\begin{equation}
   V_j = ASC_j + \beta_{c}(c) + \beta_{t}(t) + \beta_{xfer}(xfer) \tag{2.1}
 \end{equation}\]</span></p>
@@ -158,12 +125,10 @@ div.abstract{
 <ul>
 <li><span class="math inline">\(j\)</span> is the modal alternative,</li>
 <li><span class="math inline">\(c\)</span> is the cost,</li>
-<li><span class="math inline">\(t\)</span> is the travel time,</li>
-<li><span class="math inline">\(xfer\)</span> is the number of transfers</li>
+<li><span class="math inline">\(t\)</span> is the travel time, and</li>
+<li><span class="math inline">\(xfer\)</span> is the number of transfers.</li>
 </ul>
-</div>
-<div id="utility-equation-using-activitysims-path-variables" class="section level3">
-<h3><span class="header-section-number">2.2.2</span> Utility Equation using ActivitySim’s Path Variables</h3>
+<p><em>Eq 2: Utility Equation using ActivitySim’s Path Variables</em></p>
 <p><span class="math display" id="eq:label2">\[\begin{equation}
   V_j = \beta_{t_v}(t_v) + \beta_{t_w}(t_w) + \beta_{t_e}(t_e) + \beta_{tr_p}(tr_p) + \beta_{xfer}(xfer) + \beta_{w_{dis}}(w_{dis}) + \\ \beta_{b_{dis}}(b_{dis}) + \beta_{d_{dis}}(d_{dis}) \tag{2.2}
 \end{equation}\]</span></p>
@@ -178,13 +143,11 @@ div.abstract{
 <li><span class="math inline">\(w_{dis}\)</span> is the walk distance (miles),</li>
 <li><span class="math inline">\(b_{dis}\)</span> is the bike distance (miles),</li>
 <li><span class="math inline">\(d_{dis}\)</span> is the drive distance (miles),</li>
-<li><span class="math inline">\(\beta_{tr_p}\)</span> differs between origin/destination and length,</li>
-<li><span class="math inline">\(\beta_{w_{dis}}\)</span>, <span class="math inline">\(\beta_{b_{dis}}\)</span>, and <span class="math inline">\(\beta_{d_{dis}}\)</span> differ between lengths</li>
-<li><em>Note:</em> All <span class="math inline">\(\beta\)</span> values differ between mode and tour purpose</li>
+<li><span class="math inline">\(\beta_{tr_p}\)</span> differs between origin/destination and length, and</li>
+<li><span class="math inline">\(\beta_{w_{dis}}\)</span>, <span class="math inline">\(\beta_{b_{dis}}\)</span>, and <span class="math inline">\(\beta_{d_{dis}}\)</span> differ between lengths.</li>
+<li><em>Note:</em> All <span class="math inline">\(\beta\)</span> values differ between mode and tour purpose.</li>
 </ul>
-</div>
-<div id="utility-equation-using-activitysims-person-variables" class="section level3">
-<h3><span class="header-section-number">2.2.3</span> Utility Equation using ActivitySim’s Person Variables</h3>
+<p><em>Eq 3: Utility Equation using ActivitySim’s Person Variables</em></p>
 <p><span class="math display" id="eq:label3">\[\begin{equation}
   V_j = ASC_{auto} +  \beta_{c}(c) + \beta_{ag}(ag) \tag{2.3}
 \end{equation}\]</span></p>
@@ -192,13 +155,11 @@ div.abstract{
 <ul>
 <li><span class="math inline">\(j\)</span> is the modal alternative,</li>
 <li><span class="math inline">\(ASC_{auto}\)</span> is the alternative specific constant that differs between modal alternative and auto ownership dependency,</li>
-<li><span class="math inline">\(c\)</span> is the cost,</li>
-<li><span class="math inline">\(ag\)</span> is the age grouping (if the person is between 0-10 or 16-19 years old),</li>
-<li><em>Note:</em> All <span class="math inline">\(\beta\)</span> values differ between mode and tour purpose</li>
+<li><span class="math inline">\(c\)</span> is the cost, and</li>
+<li><span class="math inline">\(ag\)</span> is the age grouping (if the person is between 0-10 or 16-19 years old).</li>
+<li><em>Note:</em> All <span class="math inline">\(\beta\)</span> values differ between mode and tour purpose.</li>
 </ul>
-</div>
-<div id="utility-equation-using-activitysims-location-variables" class="section level3">
-<h3><span class="header-section-number">2.2.4</span> Utility Equation using ActivitySim’s Location Variables</h3>
+<p><em>Eq 4: Utility Equation using ActivitySim’s Location Variables</em></p>
 <p><span class="math display" id="eq:label4">\[\begin{equation}
   V_j = \beta_{zdi}(zdi) + \beta_{cbd}(cbd) \tag{2.4}
 \end{equation}\]</span></p>
@@ -206,24 +167,19 @@ div.abstract{
 <ul>
 <li><span class="math inline">\(j\)</span> is the modal alternative</li>
 <li><span class="math inline">\(zdi\)</span> is the zonal density index,</li>
-<li><span class="math inline">\(cbd\)</span> is a classifier for zones labeled as central business district,</li>
-<li><span class="math inline">\(\beta_{zdi}\)</span> differs between origin/destination</li>
-<li><em>Note:</em> All <span class="math inline">\(\beta\)</span> values differ between mode and tour purpose</li>
+<li><span class="math inline">\(cbd\)</span> is a classifier for zones labeled as central business district, and</li>
+<li><span class="math inline">\(\beta_{zdi}\)</span> differs between origin/destination.</li>
+<li><em>Note:</em> All <span class="math inline">\(\beta\)</span> values differ between mode and tour purpose.</li>
 </ul>
-</div>
-<div id="utility-equation-using-all-of-activitysims-variables" class="section level3">
-<h3><span class="header-section-number">2.2.5</span> Utility Equation using All of ActivitySim’s Variables</h3>
+<p><em>Eq 5: Utility Equation using All of ActivitySim’s Variables</em></p>
 <p><span class="math display" id="eq:label5">\[\begin{equation}  
   V_j = Eq:2.2 + Eq:2.3 + Eq:2.4 \tag{2.5}
 \end{equation}\]</span></p>
 <p>where</p>
 <ul>
-<li><span class="math inline">\(j\)</span> is the modal alternative</li>
+<li><span class="math inline">\(j\)</span> is the modal alternative.</li>
 </ul>
 
-<p><em>Please note that the results have not been calibrated so a lot of this finding is bologna</em></p>
-</div>
-</div>
 </div>
 <h3>References</h3>
 <div id="refs" class="references">
