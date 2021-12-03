@@ -1,10 +1,13 @@
 ---
-title: "The Effects of Mode Choice Model Homogeneity between Activity-based Models and Microsimulation Tools"
+title: "The Effects of Mode Choice Model Consistency between Activity-based Models and Microsimulation Tools"
 author:
   - name:  Christopher Day
     email: christophersday@gmail.com
     affiliation: Brigham Young University
     footnote: 1
+  - name:  Gregory Macfarlane
+    email: christophersday@gmail.com
+    affiliation: Brigham Young University
 address:
   - code: Brigham Young University
     address: Civil and Environmental Engineering Department, 430 Engineering Building, Provo, Utah 84602
@@ -29,16 +32,26 @@ keywords:
   - Passive Data
   - Location Choice
 ---
+```{r introsetup, include = FALSE}
+library(targets)
+library(tidyverse)
+library(kableExtra)
+
+knitr::knit_hooks$set(
+  inline = function(x) if (is.numeric(x) ) format(round(x, 3), big.mark = ",")
+)
+if(knitr::is_latex_output()){
+  knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+}
+theme_set(theme_bw())
+```
 
 # Question {#intro}
+In recent years, there has been variation in how the mode choice is estimated within activity-based travel demand modeling. Originally, @bhat1999activity stated that travel demand models should use individual trips as the primary unit of analysis, and to calculate mode at a trip level.  More recently, @eluru2010econometric developed a joint multiple discrete continuous extreme value (MDCEV) framework to model the individual’s mode choice (among other decisions). @hasnine2021tour listed differing estimation techniques found in activity-based models, some of which include tour-based modeling, nested model structures, iterative and dynamic processes, and simply calculating the mode choice elsewhere and feeding it in as an input. Variation amoung activity-based models has always existed.
 
-**Are outputs more realistic when a microsimulation tool uses a mode choice structure that mimics the activity-based model that was used to create its inputs? If so, which population characteristics within the mode choice model has the most significant effect in estimating realistic results?**
+Like with activity-based models, mode choice estimation in microsimulation tools is not universal. @w2016multi explain that mode choice in MATSim is chosen using the Charypar-Nagel Utility Function, where agents pick the best alternative based on their uniquely calculated utility score. Alternatively, @ciari2008new proposed introducing multinomial logit models on the subtour level to increase mode choice estimation accuracy in MATSim. In addition, BEAM originally used a Latent Class Choice Model as its mode choice structure, but then switched to a simple multinomial logit model. Alternatively, @barth2020evaluating proposed that BEAM implements a fundamental influencing factor (FIF) mode choice model instead. As can be seen with MATSim and BEAM, no current common ground has been established in mode choice model structure among microsimulation tools.
 
-In recent years, there has been variation in how the mode choice is estimated within activity-based travel demand modeling. Originally, @bhat1999activity stated that travel demand models should use individual trips as the primary unit of analysis, and to calculate mode at a trip level.  More recently, @eluru2010econometric developed a joint multiple discrete continuous extreme value (MDCEV) framework to model the individual’s mode choice (among other decisions). @hasnine2021tour listed differing estimation techniques found in activity-based models, some of which include tour-based modeling, nested model structures, iterative and dynamic processes, and simply calculating the mode choice elsewhere and feeding it in as an input. Overall, various methods have been in practice. 
-
-Like with activity-based models, mode choice estimation in microsimulation tools is not universal. @w2016multi explains that mode choice in MATSim is chosen using the Charypar-Nagel Utility Function, where agents pick the best alternative based on their uniquely calculated utility score. Alternatively, @ciari2008new proposed introducing multinomial logit models on the subtour level to increase mode choice estimation accuracy. In addition, BEAM originally used a Latent Class Choice Model as its mode choice structure, but then switched to a simple multinomial logit model. Alternatively, @barth2020evaluating proposed that BEAM implements a fundamental influencing factor (FIF) mode choice model instead. 
-
-Overall, it does not seem ideal to develop a single, universal technique to estimating mode choice because modeling perfect human behavior is impossible. However, a useful advancement in improved mode choice modeling could be to simply align the internal structure of mode choice in microsimulation with mode choice in activity-based models. Oftentimes, the outputs of activity-based models are used as the inputs to microsimulation tools. Yet, the way mode choice is estimated in a microsimulation tool rarely matches that of its parent activity-based model. This heterogeneity of estimation between models may lead to increased variability in the final microsimulation results. 
+Since there is no way to model human behavior perfectly, it does not seem ideal to develop one universal technique to estimating mode choice. However, a useful advancement in travel demand modeling could be to align the internal structure of mode choice in microsimulation with mode choice in activity-based models. Oftentimes, the outputs of activity-based models are used as the inputs to microsimulation tools. Yet, the way mode choice is estimated in a microsimulation tool rarely matches that of its parent activity-based model. This heterogeneity of estimation between models may lead to increased variability in the final microsimulation results. 
 
 We hypothesize that a microsimulation tool with a mode choice structure that mimics that of its parenting activity-based model more accurately simulates the distribution of mode choice across a population. In addition, we explore which population characteristics within the mode choice model has the most significant effect in estimating realistic results. 
 
