@@ -39,7 +39,7 @@ Comparing the modal share of each of the models with the actual modal share of t
 
 The total modal share simply describes the total division of mode choice alternatives for the entire population. The following figure shows the total modal share.
 
-```{r, echo = FALSE, fig.cap="TOtal Modal Split by Model Type"}
+```{r, echo = FALSE, fig.cap="The Total Modal Split of each Scenario compared with Real World Data."}
 tar_read(modalsplit_graph)
 ```
 

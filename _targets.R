@@ -36,8 +36,8 @@ data_targets <- list(
 graph_targets <- list(
   ##create modal split graphs
   tar_target(modalsplit_graph, build_modalsplit(modalsplits)),
-  tar_target(toursplit_graph, build_toursplit(toursplits,"Tour Purpose")),
-  tar_target(vehsplit_graph, build_vehsplit(vehsplits2, "Vehicle Ownership"))
+  tar_target(toursplit_graph, build_toursplit(toursplits)),
+  tar_target(vehsplit_graph, build_vehsplit(vehsplits2))
 )
 
 # Targets necessary to build the book / article

@@ -91,7 +91,7 @@ where
 *Eq 5: Utility Equation using All of ActivitySim's Variables*
   
 \begin{equation}  
-  V_j = Eq:2.2 + Eq:2.3 + Eq:2.4 (\#eq:label5)
+  V_j = Eq:2 + Eq:3 + Eq:4 (\#eq:label5)
 \end{equation}
 
 where
