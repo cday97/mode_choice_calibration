@@ -19,25 +19,26 @@ source("R/graphmaker.R")
 # Targets necessary to build your data and run your model
 data_targets <- list(
   #read in and create events data tables
-  tar_target(mnlevents, read_events("data/events-slc-mnl.csv", "https://app.box.com/index.php?rm=box_download_shared_file&shared_name=l21hkh74pjoyeiqcak3bbulr0pquclhu&file_id=f_882996284526")),
-  tar_target(pathevents, read_events("data/events-slc-path.csv", "https://app.box.com/index.php?rm=box_download_shared_file&shared_name=qcryd1cjoknzdwgparw82sbwiq1soroq&file_id=f_883000653673")),
-  tar_target(personevents, read_events("data/events-slc-person.csv", "https://app.box.com/index.php?rm=box_download_shared_file&shared_name=0r5xvd63q1brcjwa8pe8ly2claa6ewl8&file_id=f_883005362878")),
-  tar_target(locationevents, read_events("data/events-slc-location.csv", "https://app.box.com/index.php?rm=box_download_shared_file&shared_name=0r5xvd63q1brcjwa8pe8ly2claa6ewl8&file_id=f_883005362878")),
-  tar_target(allevents, read_events("data/events-slc-all.csv", "https://app.box.com/index.php?rm=box_download_shared_file&shared_name=ckbeyzg2vdzz379alr6yf3ukefjknr51&file_id=f_883007864655")),
+  tar_target(mnlevents, read_events("data/events/events-slc-mnl.csv", "https://app.box.com/index.php?rm=box_download_shared_file&shared_name=0onbva8sbsexojf4l5gu90uyudshbnpq&file_id=f_894947136745")),
+  tar_target(pathevents, read_events("data/events/events-slc-path.csv", "https://app.box.com/index.php?rm=box_download_shared_file&shared_name=mdesd3skynuvuu0v5mlet5w7k1y47s0z&file_id=f_894947017290")),
+  tar_target(personevents, read_events("data/events/events-slc-person.csv", "https://app.box.com/index.php?rm=box_download_shared_file&shared_name=87lf5uj7omu2h897oiml0owngkmfwtqn&file_id=f_894944293656")),
+  tar_target(locationevents, read_events("data/events/events-slc-location.csv", "https://app.box.com/index.php?rm=box_download_shared_file&shared_name=rxukxgi9n2tloak3gbhuztk6p8p8ttkl&file_id=f_894945104546")),
+  tar_target(allevents, read_events("data/events/events-slc-all.csv", "https://app.box.com/index.php?rm=box_download_shared_file&shared_name=1vk5rq1jsvdmb5wgiyiopuy3frhnbxbd&file_id=f_894945632456")),
   tar_target(wfrcdata, read_csv("data/wfrc-modalshares.csv")),
   
   #create basic modal split table objects
   tar_target(modalsplits,  make_modes_table(mnlevents, pathevents, personevents, locationevents, allevents, wfrcdata)),
   tar_target(toursplits, make_types_table(mnlevents, pathevents, personevents, locationevents, allevents, tourPurpose)),
-  tar_target(vehsplits, make_types_table(mnlevents, pathevents, personevents, locationevents, allevents, vehicleOwnership)),
-  tar_target(vehsplits2, fix_veh_table(vehsplits,wfrcdata))
+  tar_target(vehsplits2, make_types_table(mnlevents, pathevents, personevents, locationevents, allevents, vehicleOwnership)),
+  tar_target(wfrcTable, make_wfrc_table(wfrcdata)),
+  tar_target(wfrcVehTable, make_wfrc_veh_table(wfrcdata))
 )
 
 graph_targets <- list(
   ##create modal split graphs
-  tar_target(modalsplit_graph, build_modalsplit(modalsplits)),
+  tar_target(modalsplit_graph, build_modalsplit(modalsplits,wfrcTable)),
   tar_target(toursplit_graph, build_toursplit(toursplits)),
-  tar_target(vehsplit_graph, build_vehsplit(vehsplits2))
+  tar_target(vehsplit_graph, build_vehsplit(vehsplits2,wfrcVehTable))
 )
 
 # Targets necessary to build the book / article
