@@ -8,5 +8,5 @@
 *.spl
 
 _bookdown_files/
-data/
+data/events/
 _targets
