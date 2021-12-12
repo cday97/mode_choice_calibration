@@ -17,6 +17,14 @@ read_events <- function(raw_file, website){
     )
 }
 
+make_wfrc_table<- function(wfrc) {
+  wfrc %>% filter(purpose == "total") %>% 
+    pivot_longer(!c(mode,purpose), names_to = "vehicleOwnership", values_to = "pct") %>%
+    filter(vehicleOwnership == "total") %>%
+    select(mode, pct) %>%
+    mutate(model = "WFRC", pct = pct * 100)
+}
+
 # manipulates events file to create a modal split diagram
 make_modes_table <- function(mnlevents,pathevents,personevents,locationevents,allevents,wfrcdata) {
   e1 <- pcttable(pathevents, "Path")
@@ -24,16 +32,9 @@ make_modes_table <- function(mnlevents,pathevents,personevents,locationevents,al
   e3 <- pcttable(locationevents, "Location")
   e4 <- pcttable(allevents, "All")
   e5 <- pcttable(mnlevents, "MNL")
-  eventsfull <- rbind(e1,e2,e3,e4,e5)
-  
-  wfrc <- wfrcdata %>% filter(purpose == "total") %>% 
-    pivot_longer(!c(mode,purpose), names_to = "vehicleOwnership", values_to = "pct") %>%
-    filter(vehicleOwnership == "total") %>%
-    select(mode, pct) %>%
-    mutate(model = "WFRC", pct = pct * 100)
-  
-  bind_rows(eventsfull,wfrc)
-  
+  eventsfull <- rbind(e1,e2,e3,e4,e5) %>%
+    mutate(ModelType = ifelse(model == "MNL","BEAM Default (Eq: 1)", "ActivitySim (Eq: 2-5)")) %>%
+    mutate(model = fct_relevel(model, "MNL", "Path", "Person", "Location", "All"))
 }
 
 # a helper function used in the make_modes_table function
@@ -53,16 +54,25 @@ make_types_table <- function(mnlevents,pathevents,personevents,locationevents,al
   e3 <- pcttable2(locationevents, "Location", {{type}})
   e4 <- pcttable2(allevents, "All", {{type}})
   e5 <- pcttable2(mnlevents, "MNL", {{type}})
-  rbind(e1,e2,e3,e4,e5)
+  rbind(e1,e2,e3,e4,e5) %>%
+    mutate(ModelType = ifelse(model == "MNL","BEAM Default (Eq: 1)", "ActivitySim (Eq: 2-5)")) %>%
+    mutate(model = fct_relevel(model, "MNL", "Path", "Person", "Location", "All"))
 }
 
-fix_veh_table <- function(vehtable,wfrcdata) {
-  wfrc <- wfrcdata %>% filter(purpose == "total") %>% 
+make_wfrc_table<- function(wfrc) {
+  wfrc %>% filter(purpose == "total") %>% 
+    pivot_longer(!c(mode,purpose), names_to = "vehicleOwnership", values_to = "pct") %>%
+    filter(vehicleOwnership == "total") %>%
+    select(mode, pct) %>%
+    mutate(model = "WFRC", pct = pct * 100)
+}
+
+make_wfrc_veh_table<- function(wfrc) {
+  wfrc %>% filter(purpose == "total") %>% 
     pivot_longer(!c(mode,purpose), names_to = "vehicleOwnership", values_to = "pct") %>%
     filter(vehicleOwnership != "total") %>%
-    select(mode, pct, vehicleOwnership) %>%
+    select(mode, pct,vehicleOwnership) %>%
     mutate(model = "WFRC", pct = pct * 100)
-  bind_rows(vehtable,wfrc)
 }
 
 # a helper function used in the make_types_table function
