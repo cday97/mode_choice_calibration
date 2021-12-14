@@ -41,18 +41,8 @@ graph_targets <- list(
   tar_target(vehsplit_graph, build_vehsplit(vehsplits2,wfrcVehTable))
 )
 
-# Targets necessary to build the book / article
-#book_targets <- list(
-#  tar_target(report, rmarkdown::)
-#)
-
 # End this file with a list of target objects.
 list(
   data_targets,
   graph_targets
-  #book_targets
 )
-
-
-#download.file("https://app.box.com/index.php?rm=box_download_shared_file&shared_name=wxtrn5ycxsju0d10ewgm1va7bwqel69f&file_id=f_882973603197", "data/pathtest.csv")
-#pathtest <- read_csv("data/pathtest.csv") %>% pivot_longer(!iterations, names_to = "mode", values_to = "count")
