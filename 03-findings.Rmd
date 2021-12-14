@@ -13,28 +13,37 @@ library(patchwork)
 source("R/table_maker.R")
 ```
 
+```{r setup3, include=FALSE}
+knitr::opts_chunk$set(
+ fig.width = 8,
+ fig.asp = 0.8,
+ out.width = "80%",
+ fig.align="center"
+)
+```
+
 # Findings
 
-To effectively compare the differences between the five scenarios that we ran, we calculated how the mode choices were distributed across the population. 
+To effectively compare the differences between the five scenarios, we calculated how the mode choices were distributed across the population. 
 
-Figure \@ref(fig:fig1) shows the total modal share of the population. We hypothesized that the ActivitySim All model \@ref(eq:label5) would produce the most accurate mode choice results. Surprisingly, however, Figure \@ref(fig:fig1) shows that this was not the case. Instead, the Beam Default MNl model \@ref(eq:label1) produced the closest approximation of total modal share.
+Figure \@ref(fig:fig1) shows the total modal share of the population. We hypothesized that the ActivitySim All model \@ref(eq:label5) would produce the most accurate mode choice results. Surprisingly, however, Figure \@ref(fig:fig1) shows that this was not the case. Instead, the Beam Default MNL model \@ref(eq:label1) produced the closest approximation of total modal share.
 
-```{r fig1, echo = FALSE, fig.cap="The Total Modal Split of each Scenario compared with Real World Data."}
+```{r fig1, echo = FALSE, fig.cap="The total modal split of each scenario compared with real world data."}
 tar_read(modalsplit_graph)
 ```
 
-Figure \@ref(fig:fig2) displays how modal share is affected by vehicle ownership. Again, we were incorrect in our hypothesis that the ActivitySim All model \@ref(eq:label5) would align closest to the target shares. In general, none of the models gave an accurate representation of the modal share. Although, the Person model \@ref(eq:label3) best predicted the auto deficient values, the Path model \@ref(eq:label2) best predicted the auto sufficient values, and the BEAM Default MNL model \@ref(eq:label1) best predicted the no auto values.
+Figure \@ref(fig:fig2) displays how modal share is affected by vehicle ownership. Again, we were incorrect in our hypothesis that the ActivitySim All model \@ref(eq:label5) would align closest to the target shares. The Person model \@ref(eq:label3) best predicted the auto deficient values, the Path model \@ref(eq:label2) best predicted the auto sufficient values, and the BEAM Default MNL model \@ref(eq:label1) best predicted the no auto values. In general though, none of the models gave an accurate representation of this modal share.
 
-```{r fig2, echo = FALSE, fig.cap="The Modal Split by Vehicle Ownership of each Scenario compared with Real World Data."}
+```{r fig2, echo = FALSE, fig.cap="The modal split by vehicle ownership of each scenario compared with real world data."}
 tar_read(vehsplit_graph)
 ```
 
-Figure \@ref(fig:fig1) and Figure \@ref(fig:fig2) also show that different variable types in the utility equation yeild different mode choice results. The Path \@ref(eq:label2), Person \@ref(eq:label3), and Location \@ref(eq:label4) attributes all affected the mode choice in different ways.
+Figure \@ref(fig:fig1) and Figure \@ref(fig:fig2) also show that different variable types in the utility equation yield different mode choice results. The Path \@ref(eq:label2), Person \@ref(eq:label3), and Location \@ref(eq:label4) attributes all affected the mode choice in different ways.
 
-Figure \@ref(fig:fig3) displays how mode choice for each scenario is affected by tour purpose. This is especially true amoung school, univeristy, and work purpose trips. 
+Figure \@ref(fig:fig3) displays how mode choice for each scenario is affected by tour purpose. School, university, and work purpose trips varied the most among different scenarios. 
 
-```{r fig3, echo = FALSE, fig.cap="The Modal Split by Tour Purpose of each Scenario."}
+```{r fig3, echo = FALSE, fig.cap="The modal split by tour purpose of each scenario."}
 tar_read(toursplit_graph)
 ```
 
-Overall, a microsimulation tool with a mode choice structure that mimics that of its parenting activity-based model does not seem to more accurately simulate mode choices. This can be verified by examining the comparison modal share graphs; the ActivitySim All model \@ref(eq:label5) fails to accurately predict the actual modal share. However, we suggest that future analyzts attempt to rerun the scenarios that we have presented. Unfortunately, we did not calibrate the alternative specific constants for the ActivitySim scenarios. Rerunning the ActivitySim scenarios, but with calibration constants, could yield more enticing results.
+Overall, a microsimulation tool with a mode choice structure that mimics that of its parenting activity-based model does not seem to simulate mode choices accurately. However, we suggest that analysts attempt to rerun the scenarios that we have presented. Unfortunately, we did not calibrate the alternative specific constants for the ActivitySim scenarios. Rerunning the ActivitySim scenarios, but with calibrated constants, could yield more enticing results.
