@@ -1,0 +1,5 @@
+# Acknowledgements
+
+We are grateful to the Lawrence Berkeley National Laboratory for providing the BEAM software used to run each of our scenarios. We are also grateful to Wasatch Front Regional Council (WFRC) and the Metropolitan Planning Committee (MTC) for providing the data used to build our scenarios.
+
+# References
