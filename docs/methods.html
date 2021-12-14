@@ -5,25 +5,25 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title> 2 Methods | The Effects of Mode Choice Model Consistency between Activity-based Models and Microsimulation Tools</title>
-  <meta name="description" content="A short description" />
+  <meta name="description" content="An analysis of corresponding mode choice structures between ActivitySim and BEAM" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
   <meta property="og:title" content=" 2 Methods | The Effects of Mode Choice Model Consistency between Activity-based Models and Microsimulation Tools" />
   <meta property="og:type" content="book" />
   
   
-  <meta property="og:description" content="A short description" />
+  <meta property="og:description" content="An analysis of corresponding mode choice structures between ActivitySim and BEAM" />
   
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content=" 2 Methods | The Effects of Mode Choice Model Consistency between Activity-based Models and Microsimulation Tools" />
   
-  <meta name="twitter:description" content="A short description" />
+  <meta name="twitter:description" content="An analysis of corresponding mode choice structures between ActivitySim and BEAM" />
   
 
 
 
-<meta name="date" content="2021-12-12" />
+<meta name="date" content="2021-12-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -83,9 +83,9 @@ div.abstract{
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Question</a></li>
 <li class="chapter" data-level="2" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>2</b> Methods</a></li>
-<li class="chapter" data-level="3" data-path="findings.html"><a href="findings.html"><i class="fa fa-check"></i><b>3</b> Findings</a><ul>
-<li class="chapter" data-level="3.1" data-path="findings.html"><a href="findings.html#additional-analysis"><i class="fa fa-check"></i><b>3.1</b> Additional Analysis</a></li>
-</ul></li>
+<li class="chapter" data-level="3" data-path="findings.html"><a href="findings.html"><i class="fa fa-check"></i><b>3</b> Findings</a></li>
+<li class="chapter" data-level="4" data-path="acknowledgements.html"><a href="acknowledgements.html"><i class="fa fa-check"></i><b>4</b> Acknowledgements</a></li>
+<li class="chapter" data-level="5" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>5</b> References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -108,11 +108,11 @@ div.abstract{
             <section class="normal" id="section-">
 <div id="methods" class="section level1">
 <h1><span class="header-section-number"> 2</span> Methods</h1>
-<p>In our research, the input population used to model behavior corresponds to individuals in the Salt Lake City, Utah, US Region. The activity-based model used to generate the microsimulation input data is ActivitySim <span class="citation">(“ActivitySim” <a href="#ref-activitysim" role="doc-biblioref">2021</a>)</span>. The microsimulation tool used to generate travel behavior data is BEAM <span class="citation">(“BEAM’s User Guide” <a href="#ref-beam" role="doc-biblioref">2021</a>)</span>.</p>
-<p>ActivitySim implements a multifaceted mode choice model that is dependent on trip, tour, and purpose. One model determines the primary mode for each tour and a separate model determines the mode for each trip. In addition, each modal decision is dependent on the current tour purpose value. Contrastingly, BEAM’s default mode choice structure uses a simple multinomial logit model, independent of tour purpose value. Therefore, in order to test our hypothesis, we aligned the mode choice structure of BEAM (a microsimulation tool) with that of ActivitySim (an activity-based model).</p>
-<p>To closely align the mode choice structure of BEAM with ActivitySim, we changed much about the code structure inside of BEAM. More specifically, we wrote code that forced modal decisions to be based on tour purpose values. We also implemented the use of ActivitySim’s path, person, and location utility parameter values to calculate modal alternative probabilities. These simple steps allowed us to create consistency between an activity-based model and a microsimulation tool.</p>
-<p>To test the effectiveness of our calibrated mode choice model, we conducted five different test scenarios within BEAM and compared their outputs with eachout. Each test scenario that we simulated used a multinomial logit function to determine modal probabilities. Although all used a multinomial logit function, each scenario used a different utility function to predict behavior.</p>
-<p>The first sceneario we ran used the default BEAM structure. This represented a model with an inconsistent mode choice structure <a href="methods.html#eq:label1">(2.1)</a>. The next three scenarios we ran used a purpose based model with part of ActivitySim’s utility function (either using the path <a href="methods.html#eq:label2">(2.2)</a>, person <a href="methods.html#eq:label3">(2.3)</a>, or location type <a href="methods.html#eq:label4">(2.4)</a> variables). These represented models with semi-consistent mode choice structures. The last scenario we ran used a pupose based model with ActivitySim’s complete utility function. This represented a model with a consistent mode choice structure <a href="methods.html#eq:label5">(2.5)</a>. Simplified versions of the utility function used in each of the scenarios can be seen in the following equations.<br />
+<p>In our research, the input population corresponds to individuals in the Salt Lake City, Utah region. The activity-based model used to generate the microsimulation input data is ActivitySim <span class="citation">(“ActivitySim” <a href="#ref-activitysim" role="doc-biblioref">2021</a>)</span>. The microsimulation tool used to generate travel behavior data is BEAM <span class="citation">(“BEAM’s User Guide” <a href="#ref-beam" role="doc-biblioref">2021</a>)</span>.</p>
+<p>ActivitySim implements a multifaceted mode choice model that is dependent on trip, tour, and purpose. One model determines the primary mode for each tour and a separate model determines the mode for each trip. In addition, each modal decision is dependent on the current tour purpose value. Contrastingly, BEAM’s default mode choice structure uses a simple multinomial logit model, independent of tour purpose value. Therefore, to test our hypothesis, we aligned the mode choice structure of BEAM (a microsimulation tool) with that of ActivitySim (an activity-based model).</p>
+<p>To closely align the mode choice structure of BEAM with ActivitySim, we adjusted the code structure inside of BEAM. More specifically, we allowed for modal decisions to be based on tour purposes. We also implemented ActivitySim’s path, person, and location utility parameter values to calculate modal alternative probabilities. These simple steps allowed us to create consistency between an activity-based model and a microsimulation tool.</p>
+<p>To test the effectiveness of our calibrated mode choice model, we conducted five different test scenarios within BEAM and compared their outputs. Each test scenario that we simulated used a multinomial logit function to determine modal probabilities. Although all used a multinomial logit function, each scenario used a different utility function to predict behavior.</p>
+<p>The first scenario we ran used the default BEAM structure. This represented a model with an inconsistent mode choice structure <a href="methods.html#eq:label1">(2.1)</a>. The next three scenarios we ran used a purpose-based model with part of ActivitySim’s utility function (either using the path <a href="methods.html#eq:label2">(2.2)</a>, person <a href="methods.html#eq:label3">(2.3)</a>, or location <a href="methods.html#eq:label4">(2.4)</a> type variables). These represented models with semi-consistent mode choice structures. The last scenario we ran used a purpose-based model with ActivitySim’s complete utility function. This represented a model with a consistent mode choice structure <a href="methods.html#eq:label5">(2.5)</a>. Simplified versions of the utility function used in each of the scenarios can be seen in the following equations.<br />
 </p>
 <p><em>Eq 1: BEAM’s Default Utility Equation</em></p>
 <p><span class="math display" id="eq:label1">\[\begin{equation}

@@ -5,25 +5,25 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>The Effects of Mode Choice Model Consistency between Activity-based Models and Microsimulation Tools</title>
-  <meta name="description" content="A short description" />
+  <meta name="description" content="An analysis of corresponding mode choice structures between ActivitySim and BEAM" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
   <meta property="og:title" content="The Effects of Mode Choice Model Consistency between Activity-based Models and Microsimulation Tools" />
   <meta property="og:type" content="book" />
   
   
-  <meta property="og:description" content="A short description" />
+  <meta property="og:description" content="An analysis of corresponding mode choice structures between ActivitySim and BEAM" />
   
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="The Effects of Mode Choice Model Consistency between Activity-based Models and Microsimulation Tools" />
   
-  <meta name="twitter:description" content="A short description" />
+  <meta name="twitter:description" content="An analysis of corresponding mode choice structures between ActivitySim and BEAM" />
   
 
 
 
-<meta name="date" content="2021-12-12" />
+<meta name="date" content="2021-12-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -83,9 +83,9 @@ div.abstract{
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Question</a></li>
 <li class="chapter" data-level="2" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>2</b> Methods</a></li>
-<li class="chapter" data-level="3" data-path="findings.html"><a href="findings.html"><i class="fa fa-check"></i><b>3</b> Findings</a><ul>
-<li class="chapter" data-level="3.1" data-path="findings.html"><a href="findings.html#additional-analysis"><i class="fa fa-check"></i><b>3.1</b> Additional Analysis</a></li>
-</ul></li>
+<li class="chapter" data-level="3" data-path="findings.html"><a href="findings.html"><i class="fa fa-check"></i><b>3</b> Findings</a></li>
+<li class="chapter" data-level="4" data-path="acknowledgements.html"><a href="acknowledgements.html"><i class="fa fa-check"></i><b>4</b> Acknowledgements</a></li>
+<li class="chapter" data-level="5" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>5</b> References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -116,20 +116,20 @@ Brigham Young University<br>
 <p class="author multi-author"><em>Gregory Macfarlane</em></p>
 <address class="author_afil">
 Brigham Young University<br>
-<a class="author_email" href="mailto:#"><a href="mailto:christophersday@gmail.com" class="email">christophersday@gmail.com</a></a>
+<a class="author_email" href="mailto:#"><a href="mailto:gregmacfarlane@byu.edu" class="email">gregmacfarlane@byu.edu</a></a>
 </address>
-<p class="date"><em>2021-12-12</em></p>
+<p class="date"><em>2021-12-13</em></p>
 <div class="abstract">
 <p class="abstract">Abstract</p>
-<p>This is where the abstract should go.</p>
+<p>We report the results of various scenarios used to evaluate the impact of creating consistent mode choice structures between the activity-based model ActivitySim and the microsimulation tool BEAM. The data used in the analysis corresponded to the Salt Lake City, Utah region. We found that consistent mode choice structures did not produce a more accurate representation of the modal share of the region. We also found that different population attributes within mode choice utility equations affect output modal shares differently.</p>
 </div>
 </div>
 <div id="intro" class="section level1">
 <h1><span class="header-section-number"> 1</span> Question</h1>
-<p>In recent years, there has been variation in how the mode choice is estimated within activity-based travel demand modeling. Originally, <span class="citation">Bhat and Koppelman (<a href="#ref-bhat1999activity" role="doc-biblioref">1999</a>)</span> stated that travel demand models should use individual trips as the primary unit of analysis, and to calculate mode at a trip level. More recently, <span class="citation">Eluru et al. (<a href="#ref-eluru2010econometric" role="doc-biblioref">2010</a>)</span> developed a joint multiple discrete continuous extreme value (MDCEV) framework to model the individual’s mode choice (among other decisions). <span class="citation">Hasnine and Nurul Habib (<a href="#ref-hasnine2021tour" role="doc-biblioref">2021</a>)</span> listed differing estimation techniques found in activity-based models, some of which include tour-based modeling, nested model structures, iterative and dynamic processes, and simply calculating the mode choice elsewhere and feeding it in as an input. Variation amoung activity-based models has always existed.</p>
+<p>In recent years, there has been variation in how mode choice is estimated within activity-based modeling. Originally, <span class="citation">Bhat and Koppelman (<a href="#ref-bhat1999activity" role="doc-biblioref">1999</a>)</span> stated that travel demand models should use individual trips as the primary unit of analysis, and to calculate mode at a trip level. More recently, <span class="citation">Eluru et al. (<a href="#ref-eluru2010econometric" role="doc-biblioref">2010</a>)</span> developed a joint multiple discrete continuous extreme value (MDCEV) framework to model the individual’s mode choice (among other decisions). <span class="citation">Hasnine and Nurul Habib (<a href="#ref-hasnine2021tour" role="doc-biblioref">2021</a>)</span> listed differing estimation techniques found in activity-based models, some of which include tour-based modeling, nested model structures, iterative and dynamic processes, and simply calculating the mode choice elsewhere and feeding it in as an input. Variation among activity-based models has always existed.</p>
 <p>Like with activity-based models, mode choice estimation in microsimulation tools is not universal. <span class="citation">W Axhausen, Horni, and Nagel (<a href="#ref-w2016multi" role="doc-biblioref">2016</a>)</span> explain that mode choice in MATSim is chosen using the Charypar-Nagel Utility Function, where agents pick the best alternative based on their uniquely calculated utility score. Alternatively, <span class="citation">Ciari, Balmer, and Axhausen (<a href="#ref-ciari2008new" role="doc-biblioref">2008</a>)</span> proposed introducing multinomial logit models on the subtour level to increase mode choice estimation accuracy in MATSim. In addition, BEAM originally used a Latent Class Choice Model as its mode choice structure, but then switched to a simple multinomial logit model. Alternatively, <span class="citation">Barth et al. (<a href="#ref-barth2020evaluating" role="doc-biblioref">2020</a>)</span> proposed that BEAM implements a fundamental influencing factor (FIF) mode choice model instead. As can be seen with MATSim and BEAM, no current common ground has been established in mode choice model structure among microsimulation tools.</p>
 <p>Since there is no way to model human behavior perfectly, it does not seem ideal to develop one universal technique to estimating mode choice. However, a useful advancement in travel demand modeling could be to align the internal structure of mode choice in microsimulation with mode choice in activity-based models. Oftentimes, the outputs of activity-based models are used as the inputs to microsimulation tools. Yet, the way mode choice is estimated in a microsimulation tool rarely matches that of its parent activity-based model. This heterogeneity of estimation between models may lead to increased variability in the final microsimulation results.</p>
-<p>We hypothesize that a microsimulation tool with a mode choice structure that mimics that of its parenting activity-based model more accurately simulates the distribution of mode choice across a population. In addition, we explore which population characteristics within the mode choice model has the most significant effect in estimating realistic results.</p>
+<p>We hypothesize that a microsimulation tool with a mode choice structure that mimics that of its parenting activity-based model more accurately simulates the distribution of mode choice across a population. In addition, we explore how population characteristics within a mode choice model influence estimating realistic results.</p>
 
 </div>
 <h3>References</h3>
