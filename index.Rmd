@@ -6,7 +6,7 @@ author:
     affiliation: Brigham Young University
     footnote: 1
   - name:  Gregory Macfarlane
-    email: christophersday@gmail.com
+    email: gregmacfarlane@byu.edu
     affiliation: Brigham Young University
 address:
   - code: Brigham Young University
@@ -14,8 +14,6 @@ address:
 footnote:
   - code: 1
     text: "Corresponding Author"
-  - code: 2
-    text: "Present affiliation: some nice job"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 documentclass: article
@@ -24,13 +22,13 @@ bibliography: [book.bib]
 biblio-style: apalike
 link-citations: yes
 abstract: |
-  This is where the abstract should go.
-description: "A short description"
-layout: "3p, authoryear"
+  We report the results of various scenarios used to evaluate the impact of creating consistent mode choice structures between the activity-based model ActivitySim and the microsimulation tool BEAM. The data used in the analysis corresponded to the Salt Lake City, Utah region. We found that consistent mode choice structures did not produce a more accurate representation of the modal share of the region. We also found that different population attributes within mode choice utility equations affect output modal shares differently.
+description: "An analysis of corresponding mode choice structures between ActivitySim and BEAM"
 keywords:
-  - Accessibility
-  - Passive Data
-  - Location Choice
+  - Activity-based Model,
+  - Microsimulation Tool,
+  - Multinomial Logit (MNL) Model,
+  - Modal Share
 ---
 ```{r introsetup, include = FALSE}
 library(targets)
@@ -47,12 +45,12 @@ theme_set(theme_bw())
 ```
 
 # Question {#intro}
-In recent years, there has been variation in how the mode choice is estimated within activity-based travel demand modeling. Originally, @bhat1999activity stated that travel demand models should use individual trips as the primary unit of analysis, and to calculate mode at a trip level.  More recently, @eluru2010econometric developed a joint multiple discrete continuous extreme value (MDCEV) framework to model the individual’s mode choice (among other decisions). @hasnine2021tour listed differing estimation techniques found in activity-based models, some of which include tour-based modeling, nested model structures, iterative and dynamic processes, and simply calculating the mode choice elsewhere and feeding it in as an input. Variation among activity-based models has always existed.
+In recent years, there has been variation in how mode choice is estimated within activity-based modeling. Originally, @bhat1999activity stated that travel demand models should use individual trips as the primary unit of analysis, and to calculate mode at a trip level.  More recently, @eluru2010econometric developed a joint multiple discrete continuous extreme value (MDCEV) framework to model the individual’s mode choice (among other decisions). @hasnine2021tour listed differing estimation techniques found in activity-based models, some of which include tour-based modeling, nested model structures, iterative and dynamic processes, and simply calculating the mode choice elsewhere and feeding it in as an input. Variation among activity-based models has always existed.
 
 Like with activity-based models, mode choice estimation in microsimulation tools is not universal. @w2016multi explain that mode choice in MATSim is chosen using the Charypar-Nagel Utility Function, where agents pick the best alternative based on their uniquely calculated utility score. Alternatively, @ciari2008new proposed introducing multinomial logit models on the subtour level to increase mode choice estimation accuracy in MATSim. In addition, BEAM originally used a Latent Class Choice Model as its mode choice structure, but then switched to a simple multinomial logit model. Alternatively, @barth2020evaluating proposed that BEAM implements a fundamental influencing factor (FIF) mode choice model instead. As can be seen with MATSim and BEAM, no current common ground has been established in mode choice model structure among microsimulation tools.
 
 Since there is no way to model human behavior perfectly, it does not seem ideal to develop one universal technique to estimating mode choice. However, a useful advancement in travel demand modeling could be to align the internal structure of mode choice in microsimulation with mode choice in activity-based models. Oftentimes, the outputs of activity-based models are used as the inputs to microsimulation tools. Yet, the way mode choice is estimated in a microsimulation tool rarely matches that of its parent activity-based model. This heterogeneity of estimation between models may lead to increased variability in the final microsimulation results. 
 
-We hypothesize that a microsimulation tool with a mode choice structure that mimics that of its parenting activity-based model more accurately simulates the distribution of mode choice across a population. In addition, we explore how population characteristics within a mode choice model have an effect on estimating realistic results.
+We hypothesize that a microsimulation tool with a mode choice structure that mimics that of its parenting activity-based model more accurately simulates the distribution of mode choice across a population. In addition, we explore how population characteristics within a mode choice model influence estimating realistic results.
 
 
